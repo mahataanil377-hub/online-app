@@ -1,128 +1,75 @@
-<style>
+<!-- Footer Start -->
+<footer class="bg-dark text-light pt-5 pb-4 mt-5">
 
-/* FOOTER BLUE THEME */
-.footer {
-    background: rgb(13, 110, 253);
-    color: #f1f1f1;
-}
+  <div class="container text-md-left">
 
-/* LINKS */
-.footer a {
-    color: #e6e6e6;
-    text-decoration: none;
-    transition: 0.3s;
-}
+    <div class="row text-md-left">
 
-.footer a:hover {
-    color: #ffd700;
-    padding-left: 5px;
-}
+      <!-- About -->
+      <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 font-weight-bold text-warning">JobFinder</h5>
+        <p>
+          JobFinder is a leading online job portal helping job seekers connect with top companies worldwide. Find your dream job easily and quickly.
+        </p>
+      </div>
 
-/* HEADINGS */
-.footer h5 {
-    color: #fff;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
+      <!-- Quick Links -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 text-warning">Quick Links</h5>
+        <p><a href="#" class="text-light text-decoration-none">Home</a></p>
+        <p><a href="#" class="text-light text-decoration-none">Jobs</a></p>
+        <p><a href="#" class="text-light text-decoration-none">Companies</a></p>
+        <p><a href="#" class="text-light text-decoration-none">About Us</a></p>
+      </div>
 
-/* SOCIAL ICONS */
-.social a {
-    font-size: 18px;
-    margin-right: 10px;
-    color: #e6e6e6;
-    transition: 0.3s;
-}
+      <!-- Popular Jobs -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 text-warning">Popular Jobs</h5>
+        <p><a href="#" class="text-light text-decoration-none">Web Developer</a></p>
+        <p><a href="#" class="text-light text-decoration-none">UI/UX Designer</a></p>
+        <p><a href="#" class="text-light text-decoration-none">Data Analyst</a></p>
+        <p><a href="#" class="text-light text-decoration-none">Marketing Manager</a></p>
+      </div>
 
-.social a:hover {
-    color: #ffd700;
-    transform: translateY(-3px);
-}
+      <!-- Newsletter -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 text-warning">Newsletter</h5>
+        <p>Subscribe to get latest job updates.</p>
 
-/* NEWSLETTER */
-.newsletter input {
-    border: none;
-    padding: 8px;
-    width: 70%;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-}
+        <form>
+          <div class="mb-2">
+            <input type="email" class="form-control" placeholder="Enter your email">
+          </div>
+          <button class="btn btn-warning btn-sm w-100">Subscribe</button>
+        </form>
 
-.newsletter button {
-    border: none;
-    padding: 8px 12px;
-    background: #ffc107;
-    color: black;
-    font-weight: bold;
-    border-radius: 0 5px 5px 0;
-}
-</style>
-
-<footer class="footer pt-5 pb-3 mt-5">
-
-    <div class="container">
-        <div class="row">
-
-            <!-- ABOUT -->
-            <div class="col-md-4 mb-4">
-                <h5>💼 JobPortal</h5>
-                <p>
-                    Find your dream job easily.
-                    Connect with top companies and apply in seconds.
-                </p>
-
-                <!-- SOCIAL -->
-                <div class="social mt-3">
-                    <a href="#">👍</a>
-                    <a href="#">📘</a>
-                    <a href="#">🐦</a>
-                    <a href="#">📸</a>
-                </div>
-            </div>
-
-            <!-- QUICK LINKS -->
-            <div class="col-md-2 mb-4">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/jobs">Jobs</a></li>
-                    <li><a href="/companies">Companies</a></li>
-                    <li><a href="/about">About</a></li>
-                </ul>
-            </div>
-
-            <!-- EMPLOYERS -->
-            <div class="col-md-3 mb-4">
-                <h5>For Employers</h5>
-                <ul class="list-unstyled">
-                    <li><a href="/post-job">Post Job</a></li>
-                    <li><a href="/candidates">Search Candidates</a></li>
-                    <li><a href="/pricing">Pricing</a></li>
-                </ul>
-            </div>
-
-            <!-- NEWSLETTER -->
-            <div class="col-md-3 mb-4">
-                <h5>Newsletter</h5>
-                <p>Subscribe for latest job updates.</p>
-
-                <div class="newsletter d-flex">
-                    <input type="email" placeholder="Your email">
-                    <button>Join</button>
-                </div>
-
-                <p class="mt-3">📧 support@jobportal.com</p>
-                <p>📞 +977-9800000000</p>
-            </div>
-
+        <!-- Social -->
+        <div class="mt-3">
+          <a href="#" class="text-light me-3"><i class="bi bi-facebook fs-5"></i></a>
+          <a href="#" class="text-light me-3"><i class="bi bi-twitter fs-5"></i></a>
+          <a href="#" class="text-light me-3"><i class="bi bi-linkedin fs-5"></i></a>
+          <a href="#" class="text-light"><i class="bi bi-instagram fs-5"></i></a>
         </div>
+      </div>
 
-        <hr class="border-light">
-
-        <div class="text-center">
-            <p class="mb-0">
-                © {{ date('Y') }} <strong>JobPortal</strong>. All Rights Reserved.
-            </p>
-        </div>
     </div>
 
+    <!-- Bottom line -->
+    <hr class="mb-4">
+
+    <div class="row align-items-center">
+
+      <div class="col-md-7 col-lg-8">
+        <p>© 2026 <strong>JobFinder</strong> All rights reserved.</p>
+      </div>
+
+      <div class="col-md-5 col-lg-4">
+        <p class="text-end">Designed by <span class="text-warning">Your Team</span></p>
+      </div>
+
+    </div>
+
+  </div>
+
 </footer>
+<!-- Footer End -->

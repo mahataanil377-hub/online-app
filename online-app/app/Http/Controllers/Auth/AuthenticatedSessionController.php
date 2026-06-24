@@ -11,13 +11,15 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
+ protected function redirectTo()
+{
+    return '/dashboard';
+}    
+
     public function create(): View
     {
         return view('auth.login');
-    }
+    } 
 
     /**
      * Handle an incoming authentication request.
