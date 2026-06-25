@@ -5,21 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
+use App\Models\Category;
 
 class JobController extends Controller
 {
-    public function index()
-    {
-        $jobs = Job::with('company')->latest()->get();
-
-        return view('jobs.index', compact('jobs'));
-    }
-
+public function index()
+{
+    $jobs = Job::with(['company', 'categories'])->get();
+    return view('jobs.index', compact('jobs'));
+}
     public function create()
     {
         $companies = Company::all();
-
-        return view('jobs.create', compact('companies'));
+        $categories = category::all();
+        return view('jobs.create', compact('companies','categories'));
     }
 
     public function store(Request $request)
@@ -47,13 +46,20 @@ class JobController extends Controller
         return view('jobs.show', compact('job'));
     }
 
-    public function edit(Job $job)
-    {
-        $companies = Company::all();
 
-        return view('jobs.edit', compact('job', 'companies'));
-    }
+public function edit($id)
+{
+    $job = Job::with('categories')->findOrFail($id);
 
+    $companies = Company::all();
+    $categories = Category::all(); // <-- add this
+
+    return view('jobs.edit', compact(
+        'job',
+        'companies',
+        'categories'
+    ));
+}
     public function update(Request $request, Job $job)
     {
         $request->validate([

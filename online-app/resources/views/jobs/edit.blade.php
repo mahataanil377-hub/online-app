@@ -74,14 +74,15 @@
                 <!-- CATEGORIES -->
                 <div class="mb-3">
                     <label>Categories</label><br>
-
-                    @foreach($categories as $cat)
-                        <label class="me-2">
-                            <input type="checkbox" name="categories[]" value="{{ $cat->id }}"
-                                {{ in_array($cat->id, $job->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
-                            {{ $cat->name }}
-                        </label>
-                    @endforeach
+                   @foreach($categories as $category)
+    <label class="me-2">
+        <input type="checkbox"
+               name="categories[]"
+               value="{{ $category->id }}"
+               {{ in_array($category->id, $job->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
+        {{ $category->name }}
+    </label>
+@endforeach
                 </div>
 
                 <button class="btn btn-primary">

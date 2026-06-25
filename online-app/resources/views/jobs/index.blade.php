@@ -63,17 +63,15 @@
                             </td>
 
                             <!-- ✅ CATEGORIES ADDED -->
-                            <td>
-                                @if($job->categories && $job->categories->count())
-                                    @foreach($job->categories as $cat)
-                                        <span class="badge bg-info text-dark">
-                                            {{ $cat->name }}
-                                        </span>
-                                    @endforeach
-                                @else
-                                    <span class="text-muted">N/A</span>
-                                @endif
-                            </td>
+                         <td>
+    @foreach($job->categories as $category)
+        <span class="badge bg-primary me-1">
+            {{ $category->name }}
+        </span>
+    @endforeach
+</td>
+                              
+                              
 
                             <td class="d-flex gap-1">
 

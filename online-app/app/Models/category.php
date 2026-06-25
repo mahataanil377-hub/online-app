@@ -23,5 +23,9 @@ class category extends Model
     {
         return $this->hasMany(Application::class);
     }
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);  
+    }
     
     }

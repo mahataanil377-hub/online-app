@@ -8,12 +8,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\HomeController;
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class,'home'])->name('home.index');
 Route::get('/about', [Frontcontroller::class, 'about'])->name('about.index');
 Route::get('/apply', [Frontcontroller::class, 'apply'])->name('apply.index');
 Route::get('/home', [Frontcontroller::class, 'index'])->name('home.index');

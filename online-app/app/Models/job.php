@@ -31,6 +31,11 @@ class Job extends Model
     {
         return $this->hasMany(Application::class);
     }
-   
+
+    // Relationship: Job has many Categories
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
   
 }

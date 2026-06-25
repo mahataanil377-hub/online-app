@@ -74,10 +74,12 @@
                 <div class="mb-3">
                     <label>Categories</label><br>
 
-                    @foreach($categories as $cat)
+                    @foreach($categories as $category)
                         <label class="me-2">
-                            <input type="checkbox" name="categories[]" value="{{ $cat->id }}">
-                            {{ $cat->name }}
+                            <input type="checkbox"
+                                   name="categories[]"
+                                   value="{{ $category->id }}">
+                            {{ $category->name }}
                         </label>
                     @endforeach
                 </div>
