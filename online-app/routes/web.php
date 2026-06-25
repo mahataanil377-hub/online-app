@@ -42,6 +42,7 @@ Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 }
 
 {
@@ -76,6 +77,7 @@ Route::post('/company', [CompanyController::class, 'store'])->name('company.stor
 Route::get('/company/{id}/edit', [CompanyController::class, 'edit'])->name('company.edit');
 Route::put('/company/{id}', [CompanyController::class, 'update'])->name('company.update');
 Route::delete('/company/{id}', [CompanyController::class, 'destroy'])->name('company.destroy');
+Route::get('/company/{id}/logo', [CompanyController::class, 'logoView'])->name('company.logo');
 {
 
 Route::get('/lang/{locale}', function ($locale) {

@@ -10,11 +10,25 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('company_name');
-            $table->string('logo')->nullable();
+
+            // Basic Info
+            $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('location')->nullable();
+            $table->string('website')->nullable();
+
+            // Location
+            $table->text('address')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+
+            // Company Details
+            $table->string('industry')->nullable(); // IT, Finance, etc.
+            $table->text('description')->nullable();
+
+            // Logo
+            $table->string('logo')->nullable();
+
             $table->timestamps();
         });
     }

@@ -44,16 +44,13 @@
                             <td>{{ $item->name }}</td>
 
                             {{-- ICON IMAGE --}}
-                            <td>
-                                @if($item->icon)
-                                    <img src="{{ asset('uploads/category/'.$item->icon) }}"
-                                         width="50" height="50"
-                                         style="object-fit: cover; border-radius: 8px;">
-                                @else
-                                    -
-                                @endif
-                            </td>
-
+                             <td>
+                        @if(!empty($item->icon))
+                             <img src="{{ asset('storage/'.$item->icon) }}" width="40" alt="Icon">
+                                      @else
+                                            -
+                                        @endif
+                                     </td>
                             {{-- STATUS --}}
                             <td>
                                 @if($item->status)

@@ -28,11 +28,13 @@
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th>User</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
                         <th>Job</th>
                         <th>Applied Date</th>
                         <th>Cover Letter</th>
-                        <th>CV</th>
+                        <th>Resume</th>
                         <th>Status</th>
                         <th width="150" class="text-center">Action</th>
                     </tr>
@@ -45,17 +47,19 @@
                     <tr>
 
                         <!-- ID -->
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $application->id }}</td>
 
-                        <!-- USER (relation) -->
-                        <td>
-                            {{ $application->user->name ?? 'N/A' }}
-                        </td>
+                        <!-- NAME -->
+                        <td>{{ $application->name }}</td>
 
-                        <!-- JOB (relation) -->
-                        <td>
-                            {{ $application->job->title ?? 'N/A' }}
-                        </td>
+                        <!-- EMAIL -->
+                        <td>{{ $application->email }}</td>
+
+                        <!-- PHONE -->
+                        <td>{{ $application->phone ?? '-' }}</td>
+
+                        <!-- JOB -->
+                        <td>{{ $application->job->title ?? 'N/A' }}</td>
 
                         <!-- DATE -->
                         <td>
@@ -64,13 +68,13 @@
 
                         <!-- COVER LETTER -->
                         <td>
-                            {{ \Illuminate\Support\Str::limit($application->cover_letter, 30) }}
+                            {{ \Illuminate\Support\Str::limit($application->cover_letter, 30) ?? '-' }}
                         </td>
 
-                        <!-- CV -->
+                        <!-- RESUME -->
                         <td>
-                            @if($application->cv)
-                                <a href="{{ asset('storage/'.$application->cv) }}"
+                            @if($application->resume)
+                                <a href="{{ asset('storage/'.$application->resume) }}"
                                    target="_blank"
                                    class="btn btn-secondary btn-sm">
                                     View CV
@@ -93,7 +97,6 @@
 
                         <!-- ACTION -->
                         <td>
-
                             <div class="d-flex gap-1">
 
                                 <a href="{{ route('application.show', $application->id) }}"
@@ -116,7 +119,6 @@
                                 </form>
 
                             </div>
-
                         </td>
 
                     </tr>
@@ -124,7 +126,7 @@
                     @empty
 
                     <tr>
-                        <td colspan="8" class="text-center text-muted py-4">
+                        <td colspan="10" class="text-center text-muted py-4">
                             No Applications Found
                         </td>
                     </tr>

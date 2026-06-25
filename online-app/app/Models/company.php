@@ -9,12 +9,25 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $table = 'companies';
+
     protected $fillable = [
-        'company_name',
+        'name',
+        'email',
+        'phone',
+        'website',
+        'address',
+        'country',
+        'city',
+        'industry',
+        'description',
+        'logo',
     ];
 
+    // Relationship (यदि Job table छ भने)
     public function jobs()
     {
         return $this->hasMany(Job::class);
     }
+
 }

@@ -11,23 +11,24 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
 
-            // who applied
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->onDelete('cascade');
-
-            // which job applied
+            // Job relation
             $table->foreignId('job_id')
-                ->constrained('jobs')
-                ->onDelete('cascade');
+                  ->constrained('jobs')
+                  ->onDelete('cascade');
 
-            // application details
+            // Applicant info (user login system छैन भने)
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone')->nullable();
+
+            // Resume file
+            $table->string('resume')->nullable();
+
+            // Cover letter
             $table->text('cover_letter')->nullable();
-            $table->string('cv')->nullable(); // file path
 
-            // status tracking
-            $table->string('status')->default('pending'); 
-            // pending, accepted, rejected
+            // Status (pending, accepted, rejected)
+            $table->string('status')->default('pending');
 
             $table->timestamps();
         });

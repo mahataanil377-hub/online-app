@@ -4,93 +4,61 @@
 
 <div class="container mt-4">
 
-    <div class="card shadow-sm">
+    <div class="card shadow">
 
         <div class="card-header bg-warning text-dark">
-            <h4>Edit Company</h4>
+            <h5 class="mb-0">Edit Company</h5>
         </div>
 
         <div class="card-body">
 
-            <form action="{{ route('company.update', $company->id) }}"
-                  method="POST"
-                  enctype="multipart/form-data">
-
+            <form action="{{ route('company.update', $company->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
-                {{-- COMPANY NAME --}}
                 <div class="mb-3">
-                    <label class="form-label">Company Name</label>
-                    <input type="text"
-                           name="company_name"
-                           value="{{ $company->company_name }}"
-                           class="form-control"
-                           required>
+                    <label>Company Name</label>
+                    <input type="text" name="name" value="{{ $company->name }}" class="form-control" required>
                 </div>
 
-                {{-- EMAIL --}}
                 <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email"
-                           name="email"
-                           value="{{ $company->email }}"
-                           class="form-control">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ $company->email }}" class="form-control">
                 </div>
 
-                {{-- PHONE --}}
                 <div class="mb-3">
-                    <label class="form-label">Phone</label>
-                    <input type="text"
-                           name="phone"
-                           value="{{ $company->phone }}"
-                           class="form-control">
+                    <label>Phone</label>
+                    <input type="text" name="phone" value="{{ $company->phone }}" class="form-control">
                 </div>
 
-                {{-- ADDRESS --}}
                 <div class="mb-3">
-                    <label class="form-label">Address</label>
-                    <textarea name="location"
-                              class="form-control"
-                              rows="3">{{ $company->location }}</textarea>
+                    <label>City</label>
+                    <input type="text" name="city" value="{{ $company->city }}" class="form-control">
                 </div>
 
-                {{-- CURRENT LOGO --}}
                 <div class="mb-3">
-                    <label class="form-label">Current Logo</label><br>
+                    <label>Industry</label>
+                    <input type="text" name="industry" value="{{ $company->industry }}" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Current Logo</label><br>
 
                     @if($company->logo)
-                        <img src="{{ asset('logos/'.$company->logo) }}"
-                             width="80"
-                             height="80"
-                             style="object-fit: cover; border-radius: 10px;">
+                        <img src="{{ asset('storage/'.$company->logo) }}" width="80">
                     @else
-                        <span class="text-muted">No Logo</span>
+                        N/A
                     @endif
                 </div>
 
-                {{-- NEW LOGO --}}
                 <div class="mb-3">
-                    <label class="form-label">Change Logo</label>
-                    <input type="file"
-                           name="logo"
-                           class="form-control"
-                           accept="image/*">
+                    <label>Change Logo</label>
+                    <input type="file" name="logo" class="form-control">
                 </div>
 
-                <div class="text-end">
-
-                    <a href="{{ route('company.index') }}"
-                       class="btn btn-secondary">
-                        Cancel
-                    </a>
-
-                    <button type="submit"
-                            class="btn btn-success">
-                        Update Company
-                    </button>
-
-                </div>
+                <button class="btn btn-primary">
+                    Update Company
+                </button>
 
             </form>
 

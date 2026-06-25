@@ -6,8 +6,8 @@
 
     <div class="card shadow">
 
-        <div class="card-header bg-success text-white">
-            <h5 class="mb-0">Add Job</h5>
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Create Job</h5>
         </div>
 
         <div class="card-body">
@@ -15,57 +15,80 @@
             <form action="{{ route('jobs.store') }}" method="POST">
                 @csrf
 
-                {{-- TITLE --}}
+                <!-- TITLE -->
                 <div class="mb-3">
-                    <label>Job Title</label>
+                    <label>Title</label>
                     <input type="text" name="title" class="form-control" required>
                 </div>
 
-                {{-- COMPANY NAME --}}
+                <!-- COMPANY -->
                 <div class="mb-3">
-                    <label>Company Name</label>
-                    <input type="text" name="company_name" class="form-control" required>
+                    <label>Company</label>
+                    <select name="company_id" class="form-control" required>
+                        <option value="">Select Company</option>
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}">
+                                {{ $company->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
-                {{-- LOCATION --}}
+                <!-- LOCATION -->
                 <div class="mb-3">
                     <label>Location</label>
-                    <input type="text" name="location" class="form-control" required>
+                    <input type="text" name="location" class="form-control">
                 </div>
 
-                {{-- JOB TYPE --}}
+                <!-- JOB TYPE -->
                 <div class="mb-3">
                     <label>Job Type</label>
-                    <select name="job_type" class="form-control">
-                        <option value="full-time">Full Time</option>
-                        <option value="part-time">Part Time</option>
-                        <option value="remote">Remote</option>
-                    </select>
+                    <input type="text" name="job_type" class="form-control">
                 </div>
 
-                {{-- DESCRIPTION --}}
+                <!-- POSITION -->
+                <div class="mb-3">
+                    <label>Position</label>
+                    <input type="text" name="position" class="form-control">
+                </div>
+
+                <!-- STARTUP -->
+                <div class="mb-3">
+                    <label>Startup</label>
+                    <input type="text" name="startup" class="form-control">
+                </div>
+
+                <!-- EXPERIENCE -->
+                <div class="mb-3">
+                    <label>Experience</label>
+                    <input type="text" name="experience" class="form-control">
+                </div>
+
+                <!-- DESCRIPTION -->
                 <div class="mb-3">
                     <label>Description</label>
-                    <textarea name="description" class="form-control" rows="4"></textarea>
+                    <textarea name="description" class="form-control"></textarea>
                 </div>
 
-                {{-- STATUS --}}
+                <!-- CATEGORIES (MANY TO MANY) -->
                 <div class="mb-3">
-                    <label>Status</label>
-                    <select name="status" class="form-control">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
+                    <label>Categories</label><br>
+
+                    @foreach($categories as $cat)
+                        <label class="me-2">
+                            <input type="checkbox" name="categories[]" value="{{ $cat->id }}">
+                            {{ $cat->name }}
+                        </label>
+                    @endforeach
                 </div>
 
-                <button type="submit" class="btn btn-success w-100">
+                <button class="btn btn-success">
                     Save Job
                 </button>
 
             </form>
 
         </div>
-
     </div>
 
 </div>

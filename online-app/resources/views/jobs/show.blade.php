@@ -6,55 +6,36 @@
 
     <div class="card shadow">
 
-        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <div class="card-header bg-dark text-white">
             <h5 class="mb-0">Job Details</h5>
-
-            <a href="{{ route('jobs.index') }}" class="btn btn-light btn-sm">
-                Back
-            </a>
         </div>
 
         <div class="card-body">
 
-            <div class="row">
+            <h4>{{ $job->title }}</h4>
 
-                <div class="col-md-6 mb-3">
-                    <strong>Title:</strong>
-                    <p>{{ $job->title }}</p>
-                </div>
+            <p><b>Company:</b> {{ $job->company->name ?? 'N/A' }}</p>
+            <p><b>Location:</b> {{ $job->location }}</p>
+            <p><b>Job Type:</b> {{ $job->job_type }}</p>
+            <p><b>Position:</b> {{ $job->position }}</p>
+            <p><b>Startup:</b> {{ $job->startup }}</p>
+            <p><b>Experience:</b> {{ $job->experience }}</p>
 
-                <div class="col-md-6 mb-3">
-                    <strong>Company Name:</strong>
-                    <p>{{ $job->company_name }}</p>
-                </div>
+            <p><b>Description:</b></p>
+            <p>{{ $job->description }}</p>
 
-                <div class="col-md-6 mb-3">
-                    <strong>Location:</strong>
-                    <p>{{ $job->location }}</p>
-                </div>
+            <p><b>Categories:</b></p>
+            @foreach($job->categories as $cat)
+                <span class="badge bg-info text-dark">
+                    {{ $cat->name }}
+                </span>
+            @endforeach
 
-                <div class="col-md-6 mb-3">
-                    <strong>Job Type:</strong>
-                    <p>{{ $job->job_type ?? '-' }}</p>
-                </div>
+            <br><br>
 
-                <div class="col-md-12 mb-3">
-                    <strong>Description:</strong>
-                    <p>{{ $job->description ?? '-' }}</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <strong>Status:</strong>
-                    <p>
-                        @if($job->status == 'active')
-                            <span class="badge bg-success">Active</span>
-                        @else
-                            <span class="badge bg-danger">Inactive</span>
-                        @endif
-                    </p>
-                </div>
-
-            </div>
+            <a href="{{ route('jobs.index') }}" class="btn btn-secondary">
+                Back
+            </a>
 
         </div>
 

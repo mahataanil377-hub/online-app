@@ -10,9 +10,16 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+
+            // Category name
             $table->string('name');
+
+            // Category icon (fontawesome class or image path)
             $table->string('icon')->nullable();
+
+            // Status (1 = active, 0 = inactive)
             $table->boolean('status')->default(1);
+
             $table->timestamps();
         });
     }

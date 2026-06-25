@@ -29,8 +29,8 @@
  <div class="col-md-3 mb-3">
             <div class="card shadow border-0 bg-info text-white">
                 <div class="card-body">
-                    <h5>Categories</h5>
-                    <h2>category</h2>
+                    
+                    <h2>category{{$categories}}</h2>
                     <i class="bi bi-tags fs-1"></i>
                 </div>
             </div>

@@ -19,7 +19,8 @@ class Usercontroller extends Controller
         $jobs = Job::count();
         $companies = Company::count();
         $application = Application::count();
-        return view('dashboard', compact('users', 'jobs','companies','application'));
+        $categories = Category::count();
+        return view('dashboard', compact('users', 'jobs','companies','application','categories'));
     }
 
     // Show all users
@@ -119,4 +120,12 @@ class Usercontroller extends Controller
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }
+    
+    public function show($id)
+{
+$user = User::findOrFail($id);
+return view('user.show', compact('user'));
+
+}
+
 }

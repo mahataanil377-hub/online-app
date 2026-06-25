@@ -4,81 +4,83 @@
 
 <div class="container mt-4">
 
-    <div class="card shadow border-0">
+<div class="card shadow">
 
-        <!-- Header -->
-        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">Add New User</h4>
-            <a href="{{ route('users.index') }}" class="btn btn-light btn-sm">Back</a>
-        </div>
-
-        <div class="card-body">
-
-            <form action="{{ route('users.store') }}" 
-                  method="POST" 
-                  enctype="multipart/form-data">
-
-                @csrf
-
-                <div class="row">
-
-                    <!-- Image -->
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label fw-bold">Profile Image</label>
-                        <input type="file" name="image" class="form-control">
-                    </div>
-
-                    <!-- Name -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Name</label>
-                        <input type="text"
-                               name="name"
-                               class="form-control"
-                               placeholder="Enter full name"
-                               required>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Email</label>
-                        <input type="email"
-                               name="email"
-                               class="form-control"
-                               placeholder="Enter email"
-                               required>
-                    </div>
-
-                    
-
-                    <!-- Password -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Password</label>
-                        <input type="password"
-                               name="password"
-                               class="form-control"
-                               placeholder="Create password"
-                               required>
-                    </div>
-
-                </div>
-
-                <!-- Buttons -->
-                <div class="d-flex gap-2 mt-3">
-
-                    <button type="submit" class="btn btn-success">
-                        Save User
-                    </button>
-
-                    <a href="{{ route('users.index') }}" class="btn btn-secondary">
-                        Cancel
-                    </a>
-
-                </div>
-
-            </form>
-
-        </div>
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Create User</h5>
     </div>
+
+    <div class="card-body">
+
+        <form action="{{ route('users.store') }}" method="POST">
+            @csrf
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text"
+                       name="name"
+                       class="form-control @error('name') is-invalid @enderror"
+                       value="{{ old('name') }}"
+                       required>
+
+                @error('name')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email"
+                       name="email"
+                       class="form-control @error('email') is-invalid @enderror"
+                       value="{{ old('email') }}"
+                       required>
+
+                @error('email')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password"
+                       name="password"
+                       class="form-control @error('password') is-invalid @enderror"
+                       required>
+
+                @error('password')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password"
+                       name="password_confirmation"
+                       class="form-control"
+                       required>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                Save User
+            </button>
+
+            <a href="{{ route('users.index') }}"
+               class="btn btn-secondary">
+                Back
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
 
 </div>
 

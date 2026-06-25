@@ -2,111 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use Illuminate\Http\Request;
+use App\Models\Job;
+use App\Models\Company;
 
 class JobController extends Controller
 {
-    /**
-     * Display all jobs
-     */
     public function index()
     {
-        $jobs = Job::all();
+        $jobs = Job::with('company')->latest()->get();
+
         return view('jobs.index', compact('jobs'));
     }
 
-    /**
-     * Show create form
-     */
     public function create()
     {
-        return view('jobs.create');
+        $companies = Company::all();
+
+        return view('jobs.create', compact('companies'));
     }
 
-    /**
-     * Store job
-     */
     public function store(Request $request)
     {
         $request->validate([
+            'company_id' => 'required|exists:companies,id',
             'title' => 'required|string|max:255',
-            'company_name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
             'job_type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|in:active,inactive',
+            'position' => 'nullable',
+            'startup' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
         ]);
 
-        Job::create([
-            'title' => $request->title,
-            'company_name' => $request->company_name,
-            'location' => $request->location,
-            'job_type' => $request->job_type,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
+        Job::create($request->all());
 
-        return redirect()->route('jobs.index')
-            ->with('success', 'Job created successfully');
+        return redirect()
+            ->route('jobs.index')
+            ->with('success', 'Job Created Successfully');
     }
 
-    /**
-     * Show single job
-     */
-    public function show($id)
+    public function show(Job $job)
     {
-        $job = Job::findOrFail($id);
         return view('jobs.show', compact('job'));
     }
 
-    /**
-     * Show edit form
-     */
-    public function edit($id)
+    public function edit(Job $job)
     {
-        $job = Job::findOrFail($id);
-        return view('jobs.edit', compact('job'));
+        $companies = Company::all();
+
+        return view('jobs.edit', compact('job', 'companies'));
     }
 
-    /**
-     * Update job
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Job $job)
     {
         $request->validate([
+            'company_id' => 'required|exists:companies,id',
             'title' => 'required|string|max:255',
-            'company_name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
             'job_type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|in:active,inactive',
+            'position' => 'nullable',
+            'startup' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
         ]);
 
-        $job = Job::findOrFail($id);
+        $job->update($request->all());
 
-        $job->update([
-            'title' => $request->title,
-            'company_name' => $request->company_name,
-            'location' => $request->location,
-            'job_type' => $request->job_type,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('jobs.index')
-            ->with('success', 'Job updated successfully');
+        return redirect()
+            ->route('jobs.index')
+            ->with('success', 'Job Updated Successfully');
     }
 
-    /**
-     * Delete job
-     */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
-        $job = Job::findOrFail($id);
         $job->delete();
 
-        return redirect()->route('jobs.index')
-            ->with('success', 'Job deleted successfully');
+        return redirect()
+            ->route('jobs.index')
+            ->with('success', 'Job Deleted Successfully');
     }
 }

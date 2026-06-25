@@ -27,8 +27,11 @@
                             <th>Company</th>
                             <th>Location</th>
                             <th>Job Type</th>
+                            <th>Position</th>
+                            <th>Startup</th>
+                            <th>Experience</th>
                             <th>Description</th>
-                            <th>Status</th>
+                            <th>Categories</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,24 +41,37 @@
                         @forelse($jobs as $job)
 
                         <tr>
+
                             <td>{{ $job->id }}</td>
+
                             <td>{{ $job->title }}</td>
-                            <td>{{ $job->company_name }}</td>
-                            <td>{{ $job->location }}</td>
+
+                            <td>{{ $job->company->name ?? 'N/A' }}</td>
+
+                            <td>{{ $job->location ?? '-' }}</td>
+
+                            <td>{{ $job->job_type ?? '-' }}</td>
+
+                            <td>{{ $job->position ?? '-' }}</td>
+
+                            <td>{{ $job->startup ?? '-' }}</td>
+
+                            <td>{{ $job->experience ?? '-' }}</td>
 
                             <td>
-                                {{ $job->job_type ?? '-' }}
+                                {{ \Illuminate\Support\Str::limit($job->description ?? '', 30) }}
                             </td>
 
+                            <!-- ✅ CATEGORIES ADDED -->
                             <td>
-                                {{ Str::limit($job->description ?? '', 30) }}
-                            </td>
-
-                            <td>
-                                @if($job->status == 'active')
-                                    <span class="badge bg-success">Active</span>
+                                @if($job->categories && $job->categories->count())
+                                    @foreach($job->categories as $cat)
+                                        <span class="badge bg-info text-dark">
+                                            {{ $cat->name }}
+                                        </span>
+                                    @endforeach
                                 @else
-                                    <span class="badge bg-danger">Inactive</span>
+                                    <span class="text-muted">N/A</span>
                                 @endif
                             </td>
 
@@ -82,11 +98,12 @@
                                 </form>
 
                             </td>
+
                         </tr>
 
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center text-muted">
+                            <td colspan="11" class="text-center text-muted">
                                 No jobs found
                             </td>
                         </tr>

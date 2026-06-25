@@ -6,7 +6,7 @@
 
     <div class="card shadow">
 
-        <div class="card-header bg-warning text-dark">
+        <div class="card-header bg-warning">
             <h5 class="mb-0">Edit Job</h5>
         </div>
 
@@ -16,84 +16,81 @@
                 @csrf
                 @method('PUT')
 
-                {{-- TITLE --}}
+                <!-- TITLE -->
                 <div class="mb-3">
-                    <label>Job Title</label>
-                    <input type="text" name="title" class="form-control"
-                           value="{{ $job->title }}" required>
+                    <label>Title</label>
+                    <input type="text" name="title" value="{{ $job->title }}" class="form-control" required>
                 </div>
 
-                {{-- COMPANY NAME --}}
+                <!-- COMPANY -->
                 <div class="mb-3">
-                    <label>Company Name</label>
-                    <input type="text" name="company_name" class="form-control"
-                           value="{{ $job->company_name }}" required>
+                    <label>Company</label>
+                    <select name="company_id" class="form-control">
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}"
+                                {{ $job->company_id == $company->id ? 'selected' : '' }}>
+                                {{ $company->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
-                {{-- LOCATION --}}
+                <!-- LOCATION -->
                 <div class="mb-3">
                     <label>Location</label>
-                    <input type="text" name="location" class="form-control"
-                           value="{{ $job->location }}" required>
+                    <input type="text" name="location" value="{{ $job->location }}" class="form-control">
                 </div>
 
-                {{-- JOB TYPE --}}
+                <!-- JOB TYPE -->
                 <div class="mb-3">
                     <label>Job Type</label>
-                    <select name="job_type" class="form-control">
-
-                        <option value="full-time"
-                            {{ $job->job_type == 'full-time' ? 'selected' : '' }}>
-                            Full Time
-                        </option>
-
-                        <option value="part-time"
-                            {{ $job->job_type == 'part-time' ? 'selected' : '' }}>
-                            Part Time
-                        </option>
-
-                        <option value="remote"
-                            {{ $job->job_type == 'remote' ? 'selected' : '' }}>
-                            Remote
-                        </option>
-
-                    </select>
+                    <input type="text" name="job_type" value="{{ $job->job_type }}" class="form-control">
                 </div>
 
-                {{-- DESCRIPTION --}}
+                <!-- POSITION -->
+                <div class="mb-3">
+                    <label>Position</label>
+                    <input type="text" name="position" value="{{ $job->position }}" class="form-control">
+                </div>
+
+                <!-- STARTUP -->
+                <div class="mb-3">
+                    <label>Startup</label>
+                    <input type="text" name="startup" value="{{ $job->startup }}" class="form-control">
+                </div>
+
+                <!-- EXPERIENCE -->
+                <div class="mb-3">
+                    <label>Experience</label>
+                    <input type="text" name="experience" value="{{ $job->experience }}" class="form-control">
+                </div>
+
+                <!-- DESCRIPTION -->
                 <div class="mb-3">
                     <label>Description</label>
-                    <textarea name="description" class="form-control" rows="4">
-                        {{ $job->description }}
-                    </textarea>
+                    <textarea name="description" class="form-control">{{ $job->description }}</textarea>
                 </div>
 
-                {{-- STATUS --}}
+                <!-- CATEGORIES -->
                 <div class="mb-3">
-                    <label>Status</label>
-                    <select name="status" class="form-control">
+                    <label>Categories</label><br>
 
-                        <option value="active"
-                            {{ $job->status == 'active' ? 'selected' : '' }}>
-                            Active
-                        </option>
-
-                        <option value="inactive"
-                            {{ $job->status == 'inactive' ? 'selected' : '' }}>
-                            Inactive
-                        </option>
-
-                    </select>
+                    @foreach($categories as $cat)
+                        <label class="me-2">
+                            <input type="checkbox" name="categories[]" value="{{ $cat->id }}"
+                                {{ in_array($cat->id, $job->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
+                            {{ $cat->name }}
+                        </label>
+                    @endforeach
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">
+                <button class="btn btn-primary">
                     Update Job
                 </button>
 
             </form>
 
         </div>
-
     </div>
 
 </div>
