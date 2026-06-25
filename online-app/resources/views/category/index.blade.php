@@ -10,7 +10,7 @@
             <h5>Categories List</h5>
 
             <a href="{{ route('category.create') }}" class="btn btn-light btn-sm">
-                Add Category
+                +Add Category
             </a>
         </div>
 

@@ -49,104 +49,110 @@
 
         </div>
         
+<!-- Application Form -->
+<div class="col-lg-8">
 
-        <!-- Application Form -->
-        <div class="col-lg-8">
+    <div class="card shadow border-0">
 
-            <div class="card shadow border-0">
+        <div class="card-body p-4">
 
-                <div class="card-body p-4">
-                 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-                    <h3 class="mb-4">Job Application Form</h3>
+            <h3 class="mb-4">Job Application Form</h3>
 
-                    <form action="{{ route('application.store') }}"
-                          method="POST"
-                          enctype="multipart/form-data">
+            <form action="{{ route('application.store') }}"
+                  method="POST"
+                  enctype="multipart/form-data">
 
-                        @csrf
-                        <div class="row">
+                @csrf
 
-                            <!-- Name -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" required>
-                            </div>
+                <div class="row">
 
-                            <!-- Email -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" required>
-                            </div>
+                    <!-- Name -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               required>
+                    </div>
 
-                        </div>
-
-                        <div class="row">
-
-                            <!-- Phone -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Phone</label>
-                                <input type="text" name="phone" class="form-control" required>
-                            </div>
-
-                            <!-- Company -->
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Company</label>
-                                <input type="text" name="company" class="form-control" required>
-                            </div>
-
-                        </div>
-
-                        <!-- Address -->
-                        <div class="mb-3">
-                            <label class="form-label">position</label>
-                            <input type="text" name="position" class="form-control">
-                        </div>
-
-                        <!-- Skills -->
-                        <div class="mb-3">
-                            <label class="form-label">Skills</label>
-                            <input type="text"
-                                   name="skills"
-                                   class="form-control"
-                                   placeholder="Laravel, PHP, Bootstrap">
-                        </div>
-
-                        <!-- Resume -->
-                        <div class="mb-3">
-                            <label class="form-label">Resume</label>
-                            <input type="file" name="resume" class="form-control">
-                        </div>
-
-                        <!-- Cover Letter -->
-                        <div class="mb-3">
-                            <label class="form-label">Cover Letter</label>
-                            <textarea name="cover_letter"
-                                      rows="5"
-                                      class="form-control">write to latter</textarea>
-                        </div>
-
-                        <!-- Submit -->
-                        <button type="submit" class="btn btn-success w-10 align-items-center d-flex justify-content-center">
-                            Submmit
-                        </button>
-
-                    </form>
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               required>
+                    </div>
 
                 </div>
 
-            </div>
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text"
+                           name="phone"
+                           class="form-control">
+                </div>
+
+                <!-- Job -->
+                <div class="mb-3">
+                    <label class="form-label">Select Job</label>
+                    <select name="job_id" class="form-select" required>
+
+                        <option value="">Choose Job</option>
+
+                        @foreach ($jobs as $job)
+                            <option value="{{ $job->id }}">{{ $job->title }}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+
+                <!-- Cover Letter -->
+                <div class="mb-3">
+                    <label class="form-label">Cover Letter</label>
+                    <textarea name="cover_letter"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Write your cover letter here..."></textarea>
+                </div>
+
+                <!-- Resume -->
+                <div class="mb-4">
+                    <label class="form-label">Upload Resume</label>
+                    <input type="file"
+                           name="resume"
+                           class="form-control">
+
+                    <small class="text-muted">
+                        PDF, DOC, DOCX only
+                    </small>
+                </div>
+                
+
+                <!-- Submit -->
+                <button type="submit"
+                        class="btn btn-success px-3 py-2">
+                    Submit Application
+                </button>
+
+            </form>
 
         </div>
+
+    </div>
+
+</div>
 
     </div>
 

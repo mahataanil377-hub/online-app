@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class Frontcontroller extends Controller
@@ -16,7 +16,8 @@ class Frontcontroller extends Controller
        return view('about');
    }
    public function apply(){
-       return view('apply');
+     $jobs = Job::all();
+       return view('apply' , compact('jobs'));
    }
    public function content(){
        return view('content');
