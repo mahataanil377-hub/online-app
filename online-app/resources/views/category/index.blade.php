@@ -6,58 +6,57 @@
 
     <div class="card shadow">
 
-        <!-- Header -->
-        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Category List</h5>
+        <div class="card-header bg-primary text-white d-flex justify-content-between">
+            <h5>Categories List</h5>
 
             <a href="{{ route('category.create') }}" class="btn btn-light btn-sm">
-                + Add Category
+                Add Category
             </a>
         </div>
 
         <div class="card-body">
 
-            <div class="table-responsive">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                <table class="table table-striped table-hover align-middle">
+            <table class="table table-bordered table-striped">
 
-                    <thead class="table-dark">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Icon</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @forelse($categories as $item)
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Icon</th>
-                            <th>Status</th>
-                            <th style="width: 180px;">Action</th>
-                        </tr>
-                    </thead>
+                            <td>{{ $item->id }}</td>
 
-                    <tbody>
+                            {{-- NAME --}}
+                            <td>{{ $item->name }}</td>
 
-                        @forelse($categories as $cat)
-
-                        <tr>
-
-                            <td>{{ $cat->id }}</td>
-
-                            <td class="fw-semibold">
-                                {{ $cat->name }}
-                            </td>
-
-                            {{-- ICON --}}
+                            {{-- ICON IMAGE --}}
                             <td>
-                                @if($cat->icon)
-                                    <img src="{{ asset('uploads/category/'.$cat->icon) }}"
-                                         width="45"
-                                         height="45"
-                                         alt="icon">
+                                @if($item->icon)
+                                    <img src="{{ asset('uploads/category/'.$item->icon) }}"
+                                         width="50" height="50"
+                                         style="object-fit: cover; border-radius: 8px;">
                                 @else
-                                    N/A
+                                    -
                                 @endif
                             </td>
 
                             {{-- STATUS --}}
                             <td>
-                                @if($cat->status == 1)
+                                @if($item->status)
                                     <span class="badge bg-success">Active</span>
                                 @else
                                     <span class="badge bg-danger">Inactive</span>
@@ -65,46 +64,38 @@
                             </td>
 
                             {{-- ACTION --}}
-                            <td class="d-flex gap-1">
-
-                                <a href="{{ route('category.edit', $cat->id) }}"
+                            <td>
+                                <a href="{{ route('category.edit', $item->id) }}"
                                    class="btn btn-warning btn-sm">
                                     Edit
                                 </a>
 
-                                <form action="{{ route('category.destroy', $cat->id) }}"
-                                      method="POST">
-
+                                <form action="{{ route('category.destroy', $item->id) }}"
+                                      method="POST"
+                                      style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
 
                                     <button type="submit"
                                             class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete this category?')">
+                                            onclick="return confirm('Delete this category?')">
                                         Delete
                                     </button>
-
                                 </form>
-
                             </td>
 
                         </tr>
-
-                        @empty
-
+                    @empty
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-3">
-                                No categories found
+                            <td colspan="5" class="text-center">
+                                No Categories Found
                             </td>
                         </tr>
+                    @endforelse
 
-                        @endforelse
+                </tbody>
 
-                    </tbody>
-
-                </table>
-
-            </div>
+            </table>
 
         </div>
 

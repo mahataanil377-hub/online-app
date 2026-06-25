@@ -6,9 +6,8 @@
 
     <div class="card shadow">
 
-        <!-- Header -->
         <div class="card-header bg-warning text-dark">
-            <h5 class="mb-0">Edit Category</h5>
+            <h5>Edit Category</h5>
         </div>
 
         <div class="card-body">
@@ -17,41 +16,29 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Category Name --}}
                 <div class="mb-3">
-                    <label class="form-label">Category Name</label>
-                    <input type="text"
-                           name="name"
-                           class="form-control"
-                           value="{{ $category->name }}"
-                           required>
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control"
+                           value="{{ $category->name }}" required>
                 </div>
 
-                {{-- Current Icon --}}
-                <div class="mb-3">
-                    <label class="form-label">Current Icon</label><br>
-
-                    @if($category->icon)
+                {{-- CURRENT ICON --}}
+                @if($category->icon)
+                    <div class="mb-3">
+                        <label>Current Icon</label><br>
                         <img src="{{ asset('uploads/category/'.$category->icon) }}"
-                             width="60"
-                             height="60"
-                             alt="icon">
-                    @else
-                        <span class="text-muted">No icon uploaded</span>
-                    @endif
+                             width="60" height="60">
+                    </div>
+                @endif
+
+                {{-- NEW ICON UPLOAD --}}
+                <div class="mb-3">
+                    <label>Change Icon</label>
+                    <input type="file" name="icon" class="form-control">
                 </div>
 
-                {{-- Change Icon --}}
                 <div class="mb-3">
-                    <label class="form-label">Change Icon</label>
-                    <input type="file"
-                           name="icon"
-                           class="form-control">
-                </div>
-
-                {{-- Status --}}
-                <div class="mb-3">
-                    <label class="form-label">Status</label>
+                    <label>Status</label>
                     <select name="status" class="form-control">
 
                         <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>
@@ -65,18 +52,14 @@
                     </select>
                 </div>
 
-                {{-- Buttons --}}
-                <button type="submit" class="btn btn-warning">
+                <button class="btn btn-primary w-100">
                     Update Category
                 </button>
-
-                <a href="{{ route('category.index') }}" class="btn btn-secondary">
-                    Cancel
-                </a>
 
             </form>
 
         </div>
+
     </div>
 
 </div>

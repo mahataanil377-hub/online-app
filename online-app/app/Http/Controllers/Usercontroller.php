@@ -17,10 +17,9 @@ class Usercontroller extends Controller
     {
         $users = User::count();
         $jobs = Job::count();
-        $categories = Category::count();
-        $companies = company::count();
+        $companies = Company::count();
         $application = Application::count();
-        return view('dashboard', compact('users', 'jobs', 'categories','companies','application'));
+        return view('dashboard', compact('users', 'jobs','companies','application'));
     }
 
     // Show all users

@@ -13,12 +13,13 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-striped table-hover">
+
+        <table class="table table-striped table-hover align-middle">
             <thead>
                 <tr>
                     <th>ID</th>
-                    
-                    <th>Company_Name</th>
+                    <th>Logo</th>
+                    <th>Company Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th width="220">Action</th>
@@ -26,9 +27,22 @@
             </thead>
 
             <tbody>
-                @foreach($companies as $item)
+                @forelse($companies as $item)
                 <tr>
                     <td>{{ $item->id }}</td>
+
+                    {{-- LOGO --}}
+                    <td>
+                        @if($item->logo)
+                            <img src="{{ asset('logos/'.$item->logo) }}"
+                                 width="50"
+                                 height="50"
+                                 style="object-fit: cover; border-radius: 8px;">
+                        @else
+                            <span class="text-muted">No Logo</span>
+                        @endif
+                    </td>
+
                     <td>{{ $item->company_name }}</td>
                     <td>{{ $item->email }}</td>
                     <td>{{ $item->phone }}</td>
@@ -54,10 +68,17 @@
                     </td>
 
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="6" class="text-center text-muted">
+                        No companies found
+                    </td>
+                </tr>
+                @endforelse
             </tbody>
 
         </table>
+
     </div>
 </div>
 

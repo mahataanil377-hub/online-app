@@ -24,19 +24,16 @@
         <div class="table-responsive">
 
             <table class="table table-hover table-bordered align-middle">
-                
 
-                <thead class="table-light ">
+                <thead class="table-light">
                     <tr>
                         <th>ID</th>
-                        <th class="text-center">Applicant Name</th>
-                        <th class="text-center">Applied Date</th>
-                        <th class="text-center">Email</th>
-                        <th class="">Phone</th>
-                        <th class="text-center">Company</th>
-                        <th class="text-center">Position</th>
-                        <th class="text-center">Skills</th>
-                        <th class="text-center">Resume</th>
+                        <th>User</th>
+                        <th>Job</th>
+                        <th>Applied Date</th>
+                        <th>Cover Letter</th>
+                        <th>CV</th>
+                        <th>Status</th>
                         <th width="150" class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -47,40 +44,54 @@
 
                     <tr>
 
+                        <!-- ID -->
                         <td>{{ $loop->iteration }}</td>
 
-                        <td>{{ $application->name }}</td>
+                        <!-- USER (relation) -->
+                        <td>
+                            {{ $application->user->name ?? 'N/A' }}
+                        </td>
 
+                        <!-- JOB (relation) -->
+                        <td>
+                            {{ $application->job->title ?? 'N/A' }}
+                        </td>
+
+                        <!-- DATE -->
                         <td>
                             {{ $application->created_at ? $application->created_at->format('d M Y') : '-' }}
                         </td>
 
-                        <td>{{ $application->email }}</td>
-
-                        <td>{{ $application->phone }}</td>
-
-                        <td>{{ $application->company }}</td>
-
-                        <td>{{ $application->position }}</td>
-
+                        <!-- COVER LETTER -->
                         <td>
-                            <span class="badge  text-dark">
-                                {{ $application->skills ?? 'N/A' }}
-                            </span>
+                            {{ \Illuminate\Support\Str::limit($application->cover_letter, 30) }}
                         </td>
 
+                        <!-- CV -->
                         <td>
-                            @if($application->resume)
-                                <a href="{{ asset('storage/' . $application->resume) }}"
+                            @if($application->cv)
+                                <a href="{{ asset('storage/'.$application->cv) }}"
                                    target="_blank"
                                    class="btn btn-secondary btn-sm">
-                                    View Resume
+                                    View CV
                                 </a>
                             @else
-                                <span class="text-muted">No Resume</span>
+                                <span class="text-muted">No CV</span>
                             @endif
                         </td>
 
+                        <!-- STATUS -->
+                        <td>
+                            @if($application->status == 'pending')
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            @elseif($application->status == 'accepted')
+                                <span class="badge bg-success">Accepted</span>
+                            @else
+                                <span class="badge bg-danger">Rejected</span>
+                            @endif
+                        </td>
+
+                        <!-- ACTION -->
                         <td>
 
                             <div class="d-flex gap-1">
@@ -113,7 +124,7 @@
                     @empty
 
                     <tr>
-                        <td colspan="10" class="text-center text-muted py-4">
+                        <td colspan="8" class="text-center text-muted py-4">
                             No Applications Found
                         </td>
                     </tr>

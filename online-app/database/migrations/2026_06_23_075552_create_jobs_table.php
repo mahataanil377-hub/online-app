@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('description') ->nullable();
             $table->string('location') ->nullable();
             $table->string('status');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

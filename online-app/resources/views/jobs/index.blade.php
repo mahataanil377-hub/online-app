@@ -8,6 +8,7 @@
 
         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Job List</h5>
+
             <a href="{{ route('jobs.create') }}" class="btn btn-light btn-sm">
                 + Add Job
             </a>
@@ -25,13 +26,17 @@
                             <th>Title</th>
                             <th>Company</th>
                             <th>Location</th>
+                            <th>Job Type</th>
+                            <th>Description</th>
                             <th>Status</th>
-                            <th style="width: 180px;">Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
+
                         @forelse($jobs as $job)
+
                         <tr>
                             <td>{{ $job->id }}</td>
                             <td>{{ $job->title }}</td>
@@ -39,8 +44,16 @@
                             <td>{{ $job->location }}</td>
 
                             <td>
+                                {{ $job->job_type ?? '-' }}
+                            </td>
+
+                            <td>
+                                {{ Str::limit($job->description ?? '', 30) }}
+                            </td>
+
+                            <td>
                                 @if($job->status == 'active')
-                                    <span class="badge bg-black">Active</span>
+                                    <span class="badge bg-success">Active</span>
                                 @else
                                     <span class="badge bg-danger">Inactive</span>
                                 @endif
@@ -73,11 +86,12 @@
 
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center text-muted">
+                            <td colspan="8" class="text-center text-muted">
                                 No jobs found
                             </td>
                         </tr>
                         @endforelse
+
                     </tbody>
 
                 </table>

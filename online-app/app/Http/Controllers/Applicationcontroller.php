@@ -2,82 +2,123 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\User;
+use App\Models\Job;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
-    // LIST
+    /**
+     * LIST ALL APPLICATIONS
+     */
     public function index()
     {
-        $applications = Application::latest()->get();
+        $applications = Application::with([ 'category'])
+            ->get();
+
         return view('application.index', compact('applications'));
     }
 
-    // CREATE FORM
+    /**
+     * SHOW CREATE FORM
+     */
     public function create()
     {
-        return view('application.create');
+        $users = User::all();
+        $jobs = Job::all();
+        $categories = Category::all();
+
+        return view('application.create', compact('users', 'jobs', 'categories'));
     }
 
-    // STORE
+    /**
+     * STORE APPLICATION
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'name'         => 'required',
-            'email'        => 'required|email',
-            'phone'        => 'required',
-            'company'      => 'nullable',
-            'position'     => 'nullable',
-            'skills'       => 'nullable',
-            'cover_letter' => 'nullable',
-            'resume'       => 'nullable|mimes:pdf,doc,docx|max:2048',
+            'user_id' => 'required|exists:users,id',
+            'job_id' => 'required|exists:jobs,id',
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
         ]);
-
-        $resumePath = null;
-
-        if ($request->hasFile('resume')) {
-            $resumePath = $request->file('resume')->store('resumes', 'public');
-        }
 
         Application::create([
-            'name'         => $request->name,
-            'email'        => $request->email,
-            'phone'        => $request->phone,
-            'company'      => $request->company,
-            'position'     => $request->position,
-            'skills'       => $request->skills,
-            'cover_letter' => $request->cover_letter,
-            'resume'       => $resumePath,
-            'status'       => 'pending',
+            'user_id' => $request->user_id,
+            'job_id' => $request->job_id,
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'email' => $request->email,
         ]);
 
-        return redirect()
-            ->route('application.index')
-            ->with('success', 'Application created successfully!');
+        return redirect()->route('application.index')
+            ->with('success', 'Application created successfully');
     }
 
-    // SHOW
+    /**
+     * SHOW SINGLE APPLICATION
+     */
     public function show($id)
     {
-        $application = Application::findOrFail($id);
+        $application = Application::with(['user', 'job', 'category'])
+            ->findOrFail($id);
+
         return view('application.show', compact('application'));
     }
 
-    // DELETE
-    public function destroy($id)
+    /**
+     * SHOW EDIT FORM
+     */
+    public function edit($id)
     {
         $application = Application::findOrFail($id);
 
-        if ($application->resume &&
-            file_exists(storage_path('app/public/' . $application->resume))) {
-            unlink(storage_path('app/public/' . $application->resume));
-        }
+        $users = User::all();
+        $jobs = Job::all();
+        $categories = Category::all();
 
+        return view('application.edit', compact('application', 'users', 'jobs', 'categories'));
+    }
+
+    /**
+     * UPDATE APPLICATION
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'job_id' => 'required|exists:jobs,id',
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+        ]);
+
+        $application = Application::findOrFail($id);
+
+        $application->update([
+            'user_id' => $request->user_id,
+            'job_id' => $request->job_id,
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->route('application.index')
+            ->with('success', 'Application updated successfully');
+    }
+
+    /**
+     * DELETE APPLICATION
+     */
+    public function destroy($id)
+    {
+        $application = Application::findOrFail($id);
         $application->delete();
 
-        return redirect()
-            ->route('application.index')
-            ->with('success', 'Application deleted successfully!');
+        return redirect()->route('application.index')
+            ->with('success', 'Application deleted successfully');
     }
 }
