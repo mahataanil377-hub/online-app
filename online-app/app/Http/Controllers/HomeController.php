@@ -8,16 +8,11 @@ use App\Models\Company;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function index()
     {
-        $jobs = Job::latest()->get();
-        $categories = Category::all();
+        $jobs = Job::with('company')->get();
+        $categories = Category::withCount('jobs')->get();
         $companies = Company::all();
-
-        return view('home', compact(
-            'jobs',
-            'categories',
-            'companies'
-        ));
+        return view('home', compact('jobs', 'categories', 'companies'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -22,13 +23,18 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'icon' => 'nullable|string|max:255',
+            'icon' => 'nullable',
             'status' => 'required|in:0,1',
         ]);
-
+              $path=null;
+        if($request->hasFile('icon')) {
+            $icon = $request->file('icon');
+            $path = Storage::putFile('category-icons', $icon);
+        }
+       
         Category::create([
             'name' => $request->name,
-            'icon' => $request->icon,
+            'icon' => $path,
             'status' => $request->status,
         ]);
 
@@ -46,14 +52,24 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'icon' => 'nullable|string|max:255',
+            'icon' => 'nullable',
             'status' => 'required|in:0,1',
         ]);
-
         $category = Category::findOrFail($id);
+        $psth=null;
+        if($request->hasFile('icon')) {
+            if($category->icon){
+                Storage::delete($category->icon);
+            }
+            $icon = $request->file('icon');
+            $path = Storage::putFile('category-icons', $icon);
+            $iconName = basename($path);
+        }else{
+            $path = $category->icon;
+        }
 
         $category->name = $request->name;
-        $category->icon = $request->icon;   // 👈 ICON UPDATE HERE
+        $category->icon = $path; // 👈 ICON UPDATE HERE
         $category->status = $request->status;
 
         $category->save();

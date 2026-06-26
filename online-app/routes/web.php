@@ -11,6 +11,9 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class,'home'])->name('home.index');
+Route::get('/search', [Homecontroller::class, 'search'])->name('search.index');
+
+
 Route::get('/about', [Frontcontroller::class, 'about'])->name('about.index');
 Route::get('/apply', [Frontcontroller::class, 'apply'])->name('apply.index');
 Route::get('/home', [Frontcontroller::class, 'index'])->name('home.index');

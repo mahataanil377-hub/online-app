@@ -3,151 +3,175 @@
 @section('content')
 
 <div class="container py-5">
-    <div>
-        
-        <section class="container py-5">
 
-    <h2 class="text-center fw-bold mb-5">
-        Popular Jobs
-    </h2>
+    {{-- HERO SECTION --}}
+    <section class="bg-primary text-white d-flex align-items-center rounded-4"
+             style="min-height: 50vh;">
 
-    <div class="row g-4">
+        <div class="container text-center">
 
-        @foreach($jobs as $job)
+            <h1 class="fw-bold">Find Your Next Opportunity</h1>
 
-        <div class="col-md-4">
+            <p class="text-light">
+                Thousands of jobs waiting for you
+            </p>
 
-            <div class="card border-0 shadow-lg rounded-4 h-100">
+            {{-- SEARCH --}}
+            <form action="#" method="GET" class="row justify-content-center mt-4">
 
-                <div class="card-body">
+                <div class="col-md-6 d-flex">
 
-                    <span class="badge bg-primary">
-                        {{ $job->job_type }}
-                    </span>
+                    <input type="text"
+                           name="query"
+                           class="form-control me-2"
+                           placeholder="Search jobs...">
 
-                    <h5 class="fw-bold mt-3">
-                        {{ $job->title }}
-                    </h5>
+                    <button class="btn btn-light text-primary fw-semibold">
+                        Search
+                    </button>
 
-                    <p class="text-muted">
-                        {{ $job->location }}
-                    </p>
+                </div>
 
-                    <p>
-                        <strong>Company:</strong>
-                        {{ $job->company->name ?? 'N/A' }}
-                    </p>
+            </form>
 
-                    <p>
-                        <strong>Experience:</strong>
-                        {{ $job->experience }}
-                    </p>
+        </div>
 
-                    <a href="{{ route('jobs.show', $job->id) }}"
-                       class="btn btn-primary">
-                        View Details
-                    </a>
+    </section>
+
+    {{-- JOBS SECTION --}}
+    <section class="py-5">
+
+        <h2 class="text-center fw-bold mb-5">Latest Jobs</h2>
+
+        <div class="row g-4">
+
+            @forelse($jobs as $job)
+
+            <div class="col-md-4">
+
+                <div class="card shadow border-0 rounded-4 h-100">
+
+                    <div class="card-body">
+
+                        <span class="badge bg-primary">
+                            {{ $job->job_type }}
+                        </span>
+
+                        <h5 class="fw-bold mt-3">
+                            {{ $job->title }}
+                        </h5>
+
+                        <p class="text-muted">
+                            {{ $job->location }}
+                        </p>
+
+                        <p>
+                            <strong>Company:</strong>
+                            {{ $job->company->name ?? 'N/A' }}
+                        </p>
+
+                        <a href="{{ route('jobs.show', $job->id) }}"
+                           class="btn btn-primary">
+                            View Details
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
 
+            @empty
+                <p class="text-center text-muted">No jobs found</p>
+            @endforelse
+
         </div>
 
-        @endforeach
+    </section>
 
-    </div>
+    {{-- CATEGORIES --}}
+    <section class="py-5">
 
-</section>
+        <h2 class="text-center fw-bold mb-5">Job Categories</h2>
 
+        <div class="row g-4">
 
-</div>
-    </div>
-   <section class="container py-5">
+            @forelse($categories as $category)
 
-    <h2 class="text-center fw-bold mb-5">
-        Job Categories
-    </h2>
+            <div class="col-md-3">
 
-    <div class="row g-4">
+                <div class="card shadow rounded-4 text-center">
 
-        @foreach($categories as $category)
+                    <div class="card-body">
 
-        <div class="col-md-3">
+                        <h5 class="fw-bold">
+                            {{ $category->name }}
+                        </h5>
 
-            <div class="card border-0 shadow rounded-4 h-100">
+                        <p class="text-muted">
+                            {{ $category->jobs_count ?? 0 }} Jobs
+                        </p>
 
-                <div class="card-body text-center">
-
-                    <h5 class="fw-bold">
-                        {{ $category->name }}
-                    </h5>
-
-                    <p class="text-muted">
-                        {{ $category->jobs_count }} Jobs
-                    </p>
+                    </div>
 
                 </div>
 
             </div>
 
+            @empty
+                <p class="text-center text-muted">No categories found</p>
+            @endforelse
+
         </div>
 
-        @endforeach
+    </section>
 
-    </div>
+    {{-- COMPANIES --}}
+    <section class="py-5">
 
-</section>
+        <h2 class="text-center fw-bold mb-5">Top Companies</h2>
 
-<section class="container py-5">
+        <div class="row g-4">
 
-    <h2 class="text-center fw-bold mb-5">
-        Top Companies
-    </h2>
+            @forelse($companies as $company)
 
-    <div class="row g-4">
+            <div class="col-md-3">
 
-        @foreach($companies as $company)
+                <div class="card shadow rounded-4 text-center">
 
-        <div class="col-md-3">
+                    <div class="card-body">
 
-            <div class="card border-0 shadow rounded-4 h-100">
+                        @if($company->logo)
+                            <img src="{{ asset('storage/'.$company->logo) }}"
+                                 class="img-fluid mb-3"
+                                 style="height:80px;">
+                        @endif
 
-                <div class="card-body text-center">
+                        <h5 class="fw-bold">
+                            {{ $company->name }}
+                        </h5>
 
-                    @if($company->logo)
-                        <img src="{{ asset('storage/'.$company->logo) }}"
-                             class="img-fluid mb-3"
-                             style="height:80px;">
-                    @endif
+                        <p class="text-muted">
+                            {{ $company->city }}
+                        </p>
 
-                    <h5 class="fw-bold">
-                        {{ $company->name }}
-                    </h5>
+                        <p class="small text-secondary">
+                            {{ $company->industry }}
+                        </p>
 
-                    <p class="text-muted">
-                        {{ $company->city }}
-                    </p>
-
-                    <p class="small text-secondary">
-                        {{ $company->industry }}
-                    </p>
+                    </div>
 
                 </div>
 
             </div>
 
+            @empty
+                <p class="text-center text-muted">No companies found</p>
+            @endforelse
+
         </div>
 
-        @endforeach
-
-    </div>
-
-</section>
-        
-
-
-    </div>
+    </section>
 
 </div>
 

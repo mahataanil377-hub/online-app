@@ -4,17 +4,27 @@
 
 <div class="container mt-4">
 
-    <div class="d-flex justify-content-between mb-3">
-        <h4>Company List</h4>
-        <a href="{{ route('company.create') }}" class="btn btn-primary">
-            + Add Company
-        </a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Company List</h4>
+
+    <a href="{{ route('company.create') }}" class="btn btn-primary">
+        + Add Company
+    </a>
+</div>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
+@endif
 
-    <div class="card shadow">
-        <div class="card-body">
+<div class="card shadow">
+    <div class="card-body">
 
-            <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
@@ -24,22 +34,27 @@
                         <th>Phone</th>
                         <th>City</th>
                         <th>Industry</th>
-                        <th>Action</th>
+                        <th width="170">Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach($companies as $company)
+
+                @forelse($companies as $company)
+
                     <tr>
                         <td>{{ $loop->iteration }}</td>
 
                         <td>
                             @if($company->logo)
-                                <a href="{{ route('company.logo', $company->id) }}">
-                                    <img src="{{ Storage::url($company->logo) }}" width="50">
-                                </a>
+                                <img
+                                    src="{{ asset('storage/'.$company->logo) }}"
+                                    alt="Logo"
+                                    width="60"
+                                    height="60"
+                                    style="object-fit:cover;border-radius:8px;border:1px solid #ddd;">
                             @else
-                                N/A
+                                <span class="text-muted">No Logo</span>
                             @endif
                         </td>
 
@@ -50,28 +65,44 @@
                         <td>{{ $company->industry }}</td>
 
                         <td>
-                            <a href="{{ route('company.edit', $company->id) }}" class="btn btn-warning btn-sm">
+                            <a href="{{ route('company.edit', $company->id) }}"
+                               class="btn btn-warning btn-sm">
                                 Edit
                             </a>
 
-                            <form action="{{ route('company.destroy', $company->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('company.destroy', $company->id) }}"
+                                  method="POST"
+                                  class="d-inline">
+
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger btn-sm"
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm"
                                         onclick="return confirm('Are you sure?')">
                                     Delete
                                 </button>
+
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+
+                @empty
+
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            No Companies Found
+                        </td>
+                    </tr>
+
+                @endforelse
+
                 </tbody>
 
             </table>
-
         </div>
     </div>
-
+</div>
 </div>
 
 @endsection

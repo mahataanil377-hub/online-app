@@ -30,6 +30,7 @@ class CompanyController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        
         $data = $request->only(['name','email','phone','city','industry']);
 
         if ($request->hasFile('logo')) {
