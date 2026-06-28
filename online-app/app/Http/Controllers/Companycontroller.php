@@ -2,110 +2,117 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Company;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
+    // Show all companies
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::latest()->get();
         return view('company.index', compact('companies'));
     }
 
+    // Show create form
     public function create()
     {
         return view('company.create');
     }
 
+    // Store company
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string',
-            'city' => 'nullable|string',
-            'industry' => 'nullable|string',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'city' => 'required',
+            'industry' => 'required',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        
-        $data = $request->only(['name','email','phone','city','industry']);
+        $logo = null;
 
         if ($request->hasFile('logo')) {
-            $file = $request->file('logo');
-            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-
-            $file->storeAs('public/company', $filename);
-
-            $data['logo'] = 'company/'.$filename;
+            $logo = $request->file('logo')->store('company', 'public');
         }
 
-        Company::create($data);
+        Company::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'city' => $request->city,
+            'industry' => $request->industry,
+            'logo' => $logo,
+        ]);
 
         return redirect()->route('company.index')
-            ->with('success', 'Company created successfully');
+                         ->with('success', 'Company Added Successfully');
     }
 
+    // Show edit form
     public function edit($id)
     {
         $company = Company::findOrFail($id);
         return view('company.edit', compact('company'));
     }
 
+    // Update company
     public function update(Request $request, $id)
     {
         $company = Company::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string',
-            'city' => 'nullable|string',
-            'industry' => 'nullable|string',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'city' => 'required',
+            'industry' => 'required',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $data = $request->only(['name','email','phone','city','industry']);
-
         if ($request->hasFile('logo')) {
 
-            if ($company->logo && Storage::exists('public/'.$company->logo)) {
-                Storage::delete('public/'.$company->logo);
+            if ($company->logo && Storage::disk('public')->exists($company->logo)) {
+                Storage::disk('public')->delete($company->logo);
             }
 
-            $file = $request->file('logo');
-            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-
-            $file->storeAs('public/company', $filename);
-
-            $data['logo'] = 'company/'.$filename;
+            $company->logo = $request->file('logo')->store('company', 'public');
         }
 
-        $company->update($data);
+        $company->name = $request->name;
+        $company->email = $request->email;
+        $company->phone = $request->phone;
+        $company->city = $request->city;
+        $company->industry = $request->industry;
+
+        $company->save();
 
         return redirect()->route('company.index')
-            ->with('success', 'Company updated successfully');
+                         ->with('success', 'Company Updated Successfully');
     }
 
+    // Delete company
     public function destroy($id)
     {
         $company = Company::findOrFail($id);
 
-        if ($company->logo && Storage::exists('public/'.$company->logo)) {
-            Storage::delete('public/'.$company->logo);
+        if ($company->logo && Storage::disk('public')->exists($company->logo)) {
+            Storage::disk('public')->delete($company->logo);
         }
 
         $company->delete();
 
         return redirect()->route('company.index')
-            ->with('success', 'Company deleted successfully');
+                         ->with('success', 'Company Deleted Successfully');
     }
 
-    public function logoView($id)
+    // Show single company
+    public function show($id)
     {
         $company = Company::findOrFail($id);
-        return view('company.logo', compact('company'));
+        return view('company.show', compact('company'));
     }
 }

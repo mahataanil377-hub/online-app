@@ -6,95 +6,100 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<style>
-.sidebar{
-    width:250px;
-    height:100vh;
-    position:fixed;
-    top:0;
-    left:0;
-    background:#fff;
-    border-right:1px solid #dee2e6;
-    padding:20px;
-}
-
-.sidebar h4{
-    text-align:center;
-    color:#0d6efd;
-    font-weight:bold;
-    margin-bottom:30px;
-}
-
-.sidebar .nav-link{
-    color:#333 !important;
-    padding:12px;
-    border-radius:8px;
-    display:flex;
-    align-items:center;
-}
-
-.sidebar .nav-link i{
-    margin-right:10px;
-}
-
-.sidebar .nav-link:hover{
-    background:#0d6efd;
-    color:#fff !important;
-}
-
-.content{
-    margin-left:250px;
-    padding:20px;
-    background:#f8f9fa;
-    min-height:100vh;
-}
-</style>
 </head>
 
-<body>
+<body class="bg-light">
 
-<div class="sidebar">
+<!-- SIDEBAR -->
+<div class="d-flex">
 
-<h4>Job Portal</h4>
+    <!-- LEFT SIDEBAR -->
+    <div class="bg-white border-end vh-100 p-3" style="width:260px;">
 
-<ul class="list-unstyled">
+        <!-- LOGO -->
+        <h4 class="text-success fw-bold text-center mb-4">
+            <i class="bi bi-briefcase-fill"></i> Job Portal
+        </h4>
 
-<li><a href="{{ route('dashboard') }}" class="nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-<li><a href="{{ route('users.index') }}" class="nav-link"><i class="bi bi-people-fill"></i> Users</a></li>
+        <!-- MENU -->
+        <ul class="nav flex-column gap-1">
 
-<li>
-<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-<i class="bi bi-briefcase-fill"></i> Jobs
-</a>
-<ul class="dropdown-menu">
-<li><a class="dropdown-item" href="{{ route('jobs.index') }}">Jobs List</a></li>
-<li><a class="dropdown-item" href="{{ route('category.index') }}">Categories</a></li>
-</ul>
-</li>
+            <li class="nav-item">
+                <a class="nav-link text-dark rounded px-3 py-2 d-flex align-items-center gap-2 active bg-success text-white"
+                   href="{{ route('dashboard') }}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+            </li>
 
-<li><a href="{{ route('application.index') }}" class="nav-link"><i class="bi bi-file-earmark-text-fill"></i> Applications</a></li>
-<li><a href="{{ route('company.index') }}" class="nav-link"><i class="bi bi-building"></i> Companies</a></li>
+            <li class="nav-item">
+                <a class="nav-link text-dark rounded px-3 py-2 d-flex align-items-center gap-2"
+                   href="{{ route('users.index') }}">
+                    <i class="bi bi-people-fill"></i> Users
+                </a>
+            </li>
 
-<li><a href="#" class="nav-link"><i class="bi bi-gear-fill"></i> Settings</a></li>
+            <!-- JOBS COLLAPSE -->
+            <li class="nav-item">
+                <a class="nav-link text-dark rounded px-3 py-2 d-flex align-items-center gap-2"
+                   data-bs-toggle="collapse" href="#jobsMenu">
+                    <i class="bi bi-briefcase"></i> Blog
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </a>
 
-<li>
-<form method="POST" action="{{ route('logout') }}">
-@csrf
-<button class="btn btn-danger w-100 mt-3">
-<i class="bi bi-box-arrow-right"></i> Logout
-</button>
-</form>
-</li>
+                <div class="collapse ps-4" id="jobsMenu">
 
-</ul>
+                    <a class="nav-link text-secondary py-1"
+                       href="{{ route('jobs.index') }}">
+                        Jobs List
+                    </a>
 
-</div>
+                    <a class="nav-link text-secondary py-1"
+                       href="{{ route('category.index') }}">
+                        Categories
+                    </a>
 
-<div class="content">
-@yield('content')
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark rounded px-3 py-2 d-flex align-items-center gap-2"
+                   href="{{ route('application.index') }}">
+                    <i class="bi bi-file-earmark-text-fill"></i> Applications
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark rounded px-3 py-2 d-flex align-items-center gap-2"
+                   href="{{ route('company.index') }}">
+                    <i class="bi bi-building"></i> Companies
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark rounded px-3 py-2 d-flex align-items-center gap-2"
+                   href="#">
+                    <i class="bi bi-gear-fill"></i> Settings
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- LOGOUT -->
+        <form method="POST" action="{{ route('logout') }}" class="mt-4">
+            @csrf
+            <button class="btn btn-danger w-100 rounded">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </form>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="flex-grow-1 p-4">
+        @yield('content')
+    </div>
+
 </div>
 
 </body>
