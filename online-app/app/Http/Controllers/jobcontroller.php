@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobRequest;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Company;
@@ -21,20 +22,11 @@ public function index()
         return view('jobs.create', compact('companies','categories'));
     }
 
-    public function store(Request $request)
+    public function store(JobRequest $request)
     {
-        $request->validate([
-            'company_id' => 'required|exists:companies,id',
-            'title' => 'required|string|max:255',
-            'job_type' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'position' => 'nullable',
-            'startup' => 'nullable|string|max:255',
-            'experience' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-        ]);
+       $validate=$request->validated();
 
-        Job::create($request->all());
+        Job::create($validate);
 
         return redirect()
             ->route('jobs.index')

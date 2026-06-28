@@ -29,4 +29,10 @@ class Frontcontroller extends Controller
        return view('dashboard');
        
    }
+
+   public function jobdetails($id){
+       $job=Job::find($id);
+       return view('fontend.jobs.details',compact('job'));
+   }
+   
     }

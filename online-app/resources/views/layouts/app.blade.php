@@ -15,8 +15,10 @@
 </style>
 </head>
 <body>
+    
     <header>
         @include('layouts.navigation')
+        
 </header>
 <main>
     @yield('content')

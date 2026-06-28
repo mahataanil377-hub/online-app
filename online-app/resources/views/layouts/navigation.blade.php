@@ -7,16 +7,16 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- ================= NAVBAR ================= -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm text-uppercase w-100">
 
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm text-uppercase py-3  w-100"
+     style="background-color:#006400;">
     <div class="container-fluid">
 
-        <!-- LEFT: Brand -->
-        <a class="navbar-brand fw-bold fs-4 text-white" href="#">
-            Mahata Jobs
-        </a>
-
+       <!-- LEFT: Brand -->
+       
+       <a class="navbar-brand d-flex align-items-center gap-2" href="">
+    <img src="{{ asset('images/logo.png') }}" alt="Mahata Job" style="height:45px;">
+</a>
         <!-- Toggle -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
             <span class="navbar-toggler-icon"></span>

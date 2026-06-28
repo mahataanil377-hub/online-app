@@ -2,109 +2,206 @@
 
 @section('content')
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
 <style>
-.hero-section{
-    background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
+body{
+    background:#f5f5f5;
 }
 
+/* Card */
 .contact-card{
-    transition: .3s;
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.1);
 }
 
-.contact-card:hover{
-    transform: translateY(-5px);
+/* Left Side */
+.left-side{
+    background:linear-gradient(135deg,#166534,#14532d);
+    color:white;
+    padding:50px 40px;
+    height:100%;
 }
 
-.info-icon{
-    width: 45px;
-    height: 45px;
-    background: #198754;
-    color: #fff;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
+.left-side i{
+    font-size:22px;
+    width:40px;
+}
+
+.left-side h2{
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+/* Form */
+.form-control{
+    border-radius:12px;
+    padding:12px;
+}
+
+.form-control:focus{
+    border-color:#166534;
+    box-shadow:0 0 0 .2rem rgba(22,101,52,.25);
+}
+
+textarea.form-control{
+    resize:none;
+}
+
+/* Button */
+.btn-send{
+    background:#166534;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:12px 35px;
+    transition:.3s;
+}
+
+.btn-send:hover{
+    background:#14532d;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+/* Title */
+.contact-title{
+    font-weight:700;
+    color:#166534;
 }
 </style>
 
-<!-- Hero Section -->
+<div class="container py-5">
 
-<section class="hero-section text-white py-5">
-    <div class="container text-center">
-        <h1 class="display-4 fw-bold">Contact Us</h1>
-        <p class="lead mb-0">
-            We'd love to hear from you. Send us a message anytime.
-        </p>
-    </div>
-</section>
+    <div class="card contact-card">
 
-<section class="py-5 bg-light">
-    <div class="container">
-    <div class="row g-4">
+        <div class="row g-0">
 
-        <!-- Contact Form -->
-        <div class="col-lg-7">
+            <!-- LEFT -->
+            <div class="col-lg-5">
 
-            <div class="card border-0 shadow-lg contact-card">
-                <div class="card-body p-5">
+                <div class="left-side">
 
-                    <h3 class="fw-bold mb-4">
-                        <i class="bi bi-chat-dots-fill text-success"></i>
-                        Send a Message
-                    </h3>
+                    <h2>Contact Us</h2>
 
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <p class="mb-5">
+                        We'd love to hear from you. Send us your questions,
+                        suggestions or feedback anytime.
+                    </p>
+
+                    <div class="mb-4 d-flex">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <div>
+                            <strong>Address</strong><br>
+                            Dhangadhi, Nepal
+                        </div>
+                    </div>
+
+                    <div class="mb-4 d-flex">
+                        <i class="bi bi-telephone-fill"></i>
+                        <div>
+                            <strong>Phone</strong><br>
+                            +977-9744295353
+                        </div>
+                    </div>
+
+                    <div class="mb-4 d-flex">
+                        <i class="bi bi-envelope-fill"></i>
+                        <div>
+                            <strong>Email</strong><br>
+                            mahataanil377@gmail.com
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+
+                        <a href="#" class="text-white me-3 fs-4">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+
+                        <a href="#" class="text-white me-3 fs-4">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#" class="text-white me-3 fs-4">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-lg-7">
+
+                <div class="p-5">
+
+                    <h2 class="contact-title mb-4">
+                        Send us a Message
+                    </h2>
+
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('contact.store') }}" method="POST">
+
                         @csrf
 
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold">Full Name</label>
                                 <input type="text"
                                        name="name"
-                                       class="form-control rounded-3 mb-3"
-                                       placeholder="Full Name"
-                                       required>
+                                       class="form-control"
+                                       value="{{ old('name') }}"
+                                       placeholder="John Doe">
                             </div>
 
-                            <div class="col-md-6">
-                                <input type="email"
-                                       name="email"
-                                       class="form-control rounded-3 mb-3"
-                                       placeholder="Email Address"
-                                       required>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold">Phone</label>
+                                <input type="text"
+                                       name="phone"
+                                       class="form-control"
+                                       value="{{ old('phone') }}"
+                                       placeholder="98XXXXXXXX">
                             </div>
 
                         </div>
 
-                        <input type="text"
-                               name="subject"
-                               class="form-control rounded-3 mb-3"
-                               placeholder="Subject"
-                               required>
-
-                        <textarea name="message"
-                                  rows="6"
-                                  class="form-control rounded-3 mb-3"
-                                  placeholder="Write your message..."
-                                  required></textarea>
+                        <div class="mb-3">
+                            <label class="fw-bold">Email Address</label>
+                            <input type="email"
+                                   name="email"
+                                   class="form-control"
+                                   value="{{ old('email') }}"
+                                   placeholder="example@gmail.com">
+                        </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">
-                                Upload Image
-                            </label>
-
-                            <input type="file"
-                                   name="image"
-                                   class="form-control rounded-3"
-                                   accept="image/*">
+                            <label class="fw-bold">Message</label>
+                            <textarea name="message"
+                                      rows="6"
+                                      class="form-control"
+                                      placeholder="Write your message...">{{ old('message') }}</textarea>
                         </div>
 
-                        <button type="submit"
-                                class="btn btn-success btn-lg w-100 rounded-pill">
+                        <button class="btn btn-send">
                             <i class="bi bi-send-fill"></i>
                             Send Message
                         </button>
@@ -112,121 +209,13 @@
                     </form>
 
                 </div>
-            </div>
-
-        </div>
-
-        <!-- Contact Information -->
-        <div class="col-lg-5">
-
-            <div class="card border-0 shadow-lg contact-card">
-
-                <img src="{{ asset('images/contact.jpg') }}"
-                     class="card-img-top"
-                     alt="Contact Image"
-                     style="height:300px; object-fit:cover;">
-
-                <div class="card-body p-4">
-
-                    <h3 class="fw-bold mb-4">
-                        Contact Information
-                    </h3>
-
-                    <div class="mb-4">
-                        <span class="info-icon">
-                            <i class="bi bi-geo-alt-fill"></i>
-                        </span>
-
-                        <strong>Address</strong>
-                        <br>
-                        New Baneshwor, Kathmandu, Nepal
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="info-icon">
-                            <i class="bi bi-telephone-fill"></i>
-                        </span>
-
-                        <strong>Phone</strong>
-                        <br>
-                        +977-9800000000
-                    </div>
-
-                    <div class="mb-4">
-                        <span class="info-icon">
-                            <i class="bi bi-envelope-fill"></i>
-                        </span>
-
-                        <strong>Email</strong>
-                        <br>
-                        support@onlinejob.com
-                    </div>
-
-                    <div>
-                        <span class="info-icon">
-                            <i class="bi bi-clock-fill"></i>
-                        </span>
-
-                        <strong>Office Hours</strong>
-                        <br>
-                        Sunday - Friday
-                        <br>
-                        9:00 AM - 6:00 PM
-                    </div>
-
-                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-    <!-- Statistics -->
-    <div class="row text-center my-5">
-
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm py-4">
-                <h2 class="fw-bold text-success">500+</h2>
-                <p class="mb-0">Jobs Posted</p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm py-4">
-                <h2 class="fw-bold text-success">200+</h2>
-                <p class="mb-0">Companies</p>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm py-4">
-                <h2 class="fw-bold text-success">1000+</h2>
-                <p class="mb-0">Applicants</p>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Google Map -->
-    <div class="card border-0 shadow-lg">
-        <div class="card-body p-0">
-
-            <iframe
-                src="https://maps.google.com/maps?q=Kathmandu%20Nepal&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="450"
-                style="border:0;border-radius:15px;"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
-
-        </div>
     </div>
 
 </div>
-```
-
-</section>
 
 @endsection

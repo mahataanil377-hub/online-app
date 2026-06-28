@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,18 +11,30 @@ use App\Models\Job;
 use App\Models\Category;
 use App\Models\company;
 use App\Models\Application;
+use App\Models\Notification;
+
+
 class Usercontroller extends Controller
 {
     // Dashboard (user count)
     public function dashboard()
     {
-        $users = User::count();
-        $jobs = Job::count();
-        $companies = Company::count();
-        $application = Application::count();
-        $categories = Category::count();
-        return view('dashboard', compact('users', 'jobs','companies','application','categories'));
-    }
+       $jobs = Job::count();
+    $users = User::count();
+    $categories = Category::count();
+    $application = Application::count();
+    $companies = Company::count();
+    $notificationCount = Application::count();
+
+    return view('dashboard', compact(
+        'jobs',
+        'users',
+        'categories',
+        'application',
+        'companies',
+        'notificationCount'
+    ));
+}
 
     // Show all users
     public function index()
@@ -38,28 +51,18 @@ class Usercontroller extends Controller
     }
 
     // Store user
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'phone_no' => 'required',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg'
-        ]);
+        $validated = $request->validated();
 
         $imageName = null;
 
         if ($request->hasFile('image')) {
             $imageName = $request->file('image')->store('users', 'public');
         }
+        $validated['image'] = $imageName;
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_no' => $request->phone_no,
-            'password' => Hash::make('123456'), // default password
-            'image' => $imageName,
-        ]);
+        User::create($validated);
 
         return redirect()->route('users.index')
             ->with('success', 'User created successfully');
@@ -74,16 +77,10 @@ class Usercontroller extends Controller
     }
 
     // Update user
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'phone_no' => 'required',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg'
-        ]);
+$validated = $request->validated();
 
         $imageName = $user->image;
 
@@ -94,13 +91,8 @@ class Usercontroller extends Controller
             }
             $imageName = $request->file('image')->store('users', 'public');
         }
-
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_no' => $request->phone_no,
-            'image' => $imageName,
-        ]);
+$validated['image'] = $imageName;
+        $user->update($validated);
 
         return redirect()->route('users.index')
             ->with('success', 'User updated ');
@@ -126,6 +118,18 @@ class Usercontroller extends Controller
 $user = User::findOrFail($id);
 return view('user.show', compact('user'));
 
+}
+
+
+public function search(Request $request)
+{
+    $search = $request->search;
+
+   $jobs = Job::where('title', 'LIKE', "%{$search}%")
+           ->orWhere('location', 'LIKE', "%{$search}%")
+           ->get();
+
+    return view('search', compact('jobs', 'search'));
 }
 
 }

@@ -11,20 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_job', function (Blueprint $table) {
-               $table->id();
-
-            $table->foreignId('job_id')
-                  ->constrained()
-                  ->onDelete('cascade');
-
-            $table->foreignId('category_id')
-                  ->constrained()
-                  ->onDelete('cascade');
-
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('phone');
+            $table->string('email');
+            $table->text('message');
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_job');
+        Schema::dropIfExists('messages');
     }
 };

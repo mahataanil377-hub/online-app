@@ -9,17 +9,19 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 
 
 Route::get('/', [Homecontroller::class, 'index'])->name('home.index');
 Route::get('/home', [Homecontroller::class, 'index']);
-
-
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact.index');
+Route::post('/contact', [HomeController::class, 'store'])
+    ->name('contact.store');
 
 
 Route::get('/about', [Frontcontroller::class, 'about'])->name('about.index');
 Route::get('/apply', [Frontcontroller::class, 'apply'])->name('apply.index');
-Route::get('/contact', [Frontcontroller::class, 'contact'])->name('contact.index');
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -29,8 +31,29 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy']) ->name('profile.destroy');
 });
 
+// Contact Page
+Route::get('/contact', [HomeController::class, 'contact'])
+    ->name('contact.index');
 
- 
+// Save Contact Message
+Route::post('/contact', [MessageController::class, 'store'])
+    ->name('contact.store');
+
+// Admin Message List
+Route::get('/messages', [MessageController::class, 'index'])
+    ->name('messages.index');
+
+// Show Message
+Route::get('/messages/{id}', [MessageController::class, 'show'])
+    ->name('messages.show');
+
+// Delete Message
+Route::delete('/messages/{id}', [MessageController::class, 'destroy'])
+    ->name('messages.destroy');
+
+
+
+
 
 Route::get('/dashboard', [UserController::class, 'dashboard'])
     ->middleware(['auth'])
@@ -91,4 +114,7 @@ Route::get('/lang/{locale}', function ($locale) {
 });
    
 }
+Route::get('fontend/jobs/details/{id}', [Frontcontroller::class, 'jobDetails'])->name('job.details');
+Route::get('/search', [userController::class, 'search'])
+    ->name('search');
 require __DIR__.'/auth.php';
