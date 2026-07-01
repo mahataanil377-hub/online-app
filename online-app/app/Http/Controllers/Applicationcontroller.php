@@ -14,7 +14,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::with('job')->get();
+        $applications = Application::with('job')->latest()->paginate(6);
         return view('application.index', compact('applications'));
     }
 
@@ -56,9 +56,7 @@ class ApplicationController extends Controller
             'resume' => $resumePath,
             'status' => 'pending',
         ]);
-
-        return redirect()->route('application.index')
-                         ->with('success', 'Application submitted successfully!');
+            return back()->with('success', 'Application submitted successfully!');
     }
 
     /**

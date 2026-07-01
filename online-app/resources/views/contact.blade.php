@@ -170,7 +170,7 @@ textarea.form-control{
                                        name="name"
                                        class="form-control"
                                        value="{{ old('name') }}"
-                                       placeholder="John Doe">
+                                       placeholder="Enter your full name">
                             </div>
 
                             <div class="col-md-6 mb-3">
@@ -179,7 +179,7 @@ textarea.form-control{
                                        name="phone"
                                        class="form-control"
                                        value="{{ old('phone') }}"
-                                       placeholder="98XXXXXXXX">
+                                       placeholder="Enter your phone number">
                             </div>
 
                         </div>
@@ -190,7 +190,7 @@ textarea.form-control{
                                    name="email"
                                    class="form-control"
                                    value="{{ old('email') }}"
-                                   placeholder="example@gmail.com">
+                                   placeholder="Enter your email address">
                         </div>
 
                         <div class="mb-4">

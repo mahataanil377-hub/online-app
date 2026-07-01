@@ -4,7 +4,15 @@
 
 <div class="container mt-4">
 <div class="card shadow border-0">
+ <div class="container">
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- rest of applications list -->
     <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
         <h4 class="mb-0">Application List</h4>
 
@@ -15,12 +23,7 @@
 
     <div class="card-body">
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
+       
         <div class="table-responsive">
 
             <table class="table table-hover table-bordered align-middle">
@@ -136,7 +139,7 @@
                 </tbody>
 
             </table>
-
+    {{ $applications->links() }}
         </div>
 
     </div>

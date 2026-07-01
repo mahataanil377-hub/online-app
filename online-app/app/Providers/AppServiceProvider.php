@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Category;
-
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Safe global share (no crash if table empty)
-        // View::share('categories', Category::all());
+
+    Paginator::useBootstrapFive();
     }
+
+
 }

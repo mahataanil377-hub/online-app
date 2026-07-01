@@ -12,7 +12,7 @@ class JobController extends Controller
 {
 public function index()
 {
-    $jobs = Job::with(['company', 'categories'])->get();
+    $jobs = Job::with(['company', 'categories'])->paginate(10);
     return view('jobs.index', compact('jobs'));
 }
     public function create()
@@ -52,7 +52,7 @@ public function edit($id)
         'categories'
     ));
 }
-    public function update(Request $request, Job $job)
+    public function update(Request $request,Job $job)
     {
         $request->validate([
             'company_id' => 'required|exists:companies,id',
@@ -63,10 +63,25 @@ public function edit($id)
             'startup' => 'nullable|string|max:255',
             'experience' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',
+            ]);
+         
+
+
+        $job->update([
+            'company_id' => $request->company_id,
+            'title' => $request->title,
+            'job_type' => $request->job_type,
+            'description' => $request->description,
+            'position' => $request->position,
+            'startup' => $request->startup,
+            'experience' => $request->experience,
+            'location' => $request->location,
+
         ]);
-
-        $job->update($request->all());
-
+        if($request->has('categories')) {
+            $job->categories()->sync($request->categories);
+        }
+    
         return redirect()
             ->route('jobs.index')
             ->with('success', 'Job Updated Successfully');

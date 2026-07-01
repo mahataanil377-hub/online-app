@@ -155,10 +155,16 @@
             <i class="bi bi-speedometer2"></i>
             Dashboard
         </a>
-
-        <a href="{{ route('users.index') }}" class="nav-link">
-            <i class="bi bi-people-fill"></i>
-            Users
+        
+          <a href="{{ route('application.index') }}" class="nav-link">
+            <i class="bi bi-file-earmark-text"></i>
+            Applications
+        </a>
+       
+         
+         <a href="{{ route('company.index') }}" class="nav-link">
+            <i class="bi bi-building"></i>
+            Companies
         </a>
 
         <a class="nav-link"
@@ -184,17 +190,12 @@
             </a>
 
         </div>
-
-        <a href="{{ route('application.index') }}" class="nav-link">
-            <i class="bi bi-file-earmark-text"></i>
-            Applications
+          
+               <a href="{{ route('users.index') }}" class="nav-link">
+            <i class="bi bi-people-fill"></i>
+            Users
         </a>
-
-        <a href="{{ route('company.index') }}" class="nav-link">
-            <i class="bi bi-building"></i>
-            Companies
-        </a>
-
+       
         <a href="{{ route('messages.index') }}"
            class="nav-link d-flex justify-content-between align-items-center">
 
@@ -210,9 +211,7 @@
         </a>
 
         <a href="#" class="nav-link">
-
             <i class="bi bi-gear-fill"></i>
-
             Settings
 
         </a>

@@ -10,7 +10,7 @@ class MessageController extends Controller
     // Message List
     public function index()
     {
-        $messages = Message::latest()->get();
+        $messages = Message::latest()->paginate(4);
 
         return view('messages.index', compact('messages'));
     }

@@ -126,45 +126,58 @@
             </p>
         </div>
 
-        <div class="row">
+ <div class="row">
 
-            <div class="col-md-4 mb-4">
-                <div class="card border-0 shadow text-center">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                         class="card-img-top"
-                         alt="">
-                    <div class="card-body">
-                        <h5>John Smith</h5>
-                        <p class="text-muted">CEO & Founder</p>
-                    </div>
-                </div>
+    <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow text-center p-4">
+            <div class="py-3">
+                <i class="bi bi-person-circle text-primary" style="font-size:100px;"></i>
             </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card border-0 shadow text-center">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
-                         class="card-img-top"
-                         alt="">
-                    <div class="card-body">
-                        <h5>Sarah Johnson</h5>
-                        <p class="text-muted">HR Manager</p>
-                    </div>
-                </div>
+            <div class="card-body">
+                <h5 class="fw-bold">Anil Mahat</h5>
+                <p class="text-muted"></p>
             </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card border-0 shadow text-center">
-                    <img src="https://randomuser.me/api/portraits/men/67.jpg"
-                         class="card-img-top"
-                         alt="">
-                    <div class="card-body">
-                        <h5>Michael Brown</h5>
-                        <p class="text-muted">Recruitment Lead</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow text-center p-4">
+            <div class="py-3">
+                <i class="bi bi-person-circle text-success" style="font-size:100px;"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="fw-bold">Sarah Johnson</h5>
+                <p class="text-muted"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow text-center p-4">
+            <div class="py-3">
+                <i class="bi bi-person-circle text-danger" style="font-size:100px;"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="fw-bold">Michael Brown</h5>
+                <p class="text-muted"></p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="col-md-4 mb-4">
+        <div class="card border-0 shadow text-center p-4">
+            <div class="py-3">
+                <i class="bi bi-person-circle text-danger" style="font-size:100px;"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="fw-bold">Michael Brown</h5>
+                <p class="text-muted"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
 
     </div>
 </section>

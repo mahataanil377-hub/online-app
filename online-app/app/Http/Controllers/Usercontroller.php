@@ -16,30 +16,12 @@ use App\Models\Notification;
 
 class Usercontroller extends Controller
 {
-    // Dashboard (user count)
-    public function dashboard()
-    {
-       $jobs = Job::count();
-    $users = User::count();
-    $categories = Category::count();
-    $application = Application::count();
-    $companies = Company::count();
-    $notificationCount = Application::count();
-
-    return view('dashboard', compact(
-        'jobs',
-        'users',
-        'categories',
-        'application',
-        'companies',
-        'notificationCount'
-    ));
-}
+   
 
     // Show all users
     public function index()
     {
-        $users = User::all();
+        $users = User::latest()->paginate(5);
 
         return view('user.index', compact('users'));
     }

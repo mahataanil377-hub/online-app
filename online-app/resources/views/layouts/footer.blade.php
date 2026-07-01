@@ -1,27 +1,73 @@
 <!-- Bootstrap Icons -->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
 <style>
-.footer{
-    background: linear-gradient(135deg,#0f172a,#1e293b);
+    .footer{
+    background: linear-gradient(135deg, #0b3d2e, #14532d, #166534);
+    color: #fff;
 }
 
 .footer-title{
-    color:#fbbf24;
+    color:#facc15;
     font-weight:700;
     margin-bottom:20px;
 }
 
 .footer a{
-    color:#cbd5e1;
+    color:#d1fae5;
     text-decoration:none;
-    transition:.3s;
+    transition:0.3s;
 }
 
 .footer a:hover{
-    color:#fbbf24;
+    color:#facc15;
     padding-left:5px;
+}
+
+.social-icon{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#1f4d3a;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-right:8px;
+    transition:0.3s;
+}
+
+.social-icon:hover{
+    background:#facc15;
+    color:#000 !important;
+    transform:translateY(-3px);
+}
+
+.newsletter-input{
+    border:none;
+    border-radius:50px;
+    padding:10px 15px;
+}
+
+.subscribe-btn{
+    border-radius:50px;
+    font-weight:600;
+    background:#facc15;
+    color:#000;
+    border:none;
+}
+
+.subscribe-btn:hover{
+    background:#eab308;
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.15);
+    margin-top:30px;
+    padding-top:20px;
+}
+
+.text-light-emphasis{
+    color:#d1fae5 !important;
 }
 
 .social-icon{
@@ -104,17 +150,13 @@
 
         <!-- Quick Links -->
         <div class="col-lg-2 col-md-6">
-
             <h5 class="footer-title">Quick Links</h5>
-
             <p><a href="/">Home</a></p>
-            <p><a href="/jobs">Jobs</a></p>
-            <p><a href="/companies">Companies</a></p>
-            <p><a href="/about">About Us</a></p>
+            <p><a href="/jobs">Apply</a></p>
+            <p><a href="/about">About</a></p>
             <p><a href="/contact">Contact</a></p>
 
         </div>
-
         <!-- Popular Jobs -->
         <div class="col-lg-3 col-md-6">
 
@@ -122,9 +164,8 @@
 
             <p><a href="#">Web Developer</a></p>
             <p><a href="#">UI/UX Designer</a></p>
-            <p><a href="#">Laravel Developer</a></p>
             <p><a href="#">Data Analyst</a></p>
-            <p><a href="#">Marketing Manager</a></p>
+            <p><a href="#">Marketing</a></p>
 
         </div>
 
@@ -135,7 +176,7 @@
 
             <p>
                 <i class="bi bi-geo-alt-fill text-warning"></i>
-                Kathmandu, Nepal
+                Dhangadhi, Nepal
             </p>
 
             <p>
@@ -148,17 +189,7 @@
                 +977 9800000000
             </p>
 
-            <form class="mt-3">
 
-                <input type="email"
-                       class="form-control newsletter-input mb-2"
-                       placeholder="Enter your email">
-
-                <button class="btn btn-warning subscribe-btn w-100">
-                    Subscribe Now
-                </button>
-
-            </form>
 
         </div>
 
@@ -171,7 +202,7 @@
 
             <div class="col-md-6">
                 <p class="mb-0">
-                    © 2026 JobFinder. All Rights Reserved.
+                    &copy; 2024 JobFinder. All rights reserved.
                 </p>
             </div>
 
@@ -179,7 +210,7 @@
                 <p class="mb-0">
                     Designed & Developed by
                     <span class="text-warning fw-bold">
-                        JobFinder Team
+                        Anil Mahat
                     </span>
                 </p>
             </div>
@@ -189,6 +220,5 @@
     </div>
 
 </div>
-```
 
 </footer>

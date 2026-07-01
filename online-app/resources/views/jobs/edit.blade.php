@@ -42,9 +42,16 @@
                 </div>
 
                 <!-- JOB TYPE -->
-                <div class="mb-3">
-                    <label>Job Type</label>
-                    <input type="text" name="job_type" value="{{ $job->job_type }}" class="form-control">
+                  <div class="mb-3">
+                    <label class="form-label">Job Type</label>
+
+                    <select name="job_type" class="form-select">
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Remote">Remote</option>
+                    </select>
+
                 </div>
 
                 <!-- POSITION -->

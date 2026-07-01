@@ -10,7 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
-
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [Homecontroller::class, 'index'])->name('home.index');
 Route::get('/home', [Homecontroller::class, 'index']);
@@ -55,7 +55,7 @@ Route::delete('/messages/{id}', [MessageController::class, 'destroy'])
 
 
 
-Route::get('/dashboard', [UserController::class, 'dashboard'])
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])
     ->middleware(['auth'])
     ->name('dashboard');
     
@@ -76,7 +76,7 @@ Route::get('/jobs/create', [JobController::class, 'create'])->name('jobs.create'
 Route::post('/jobs', [JobController::class, 'store'])->name('jobs.store');
 Route::get('/jobs/{id}', [JobController::class, 'show'])->name('jobs.show');
 Route::get('/jobs/{id}/edit', [JobController::class, 'edit'])->name('jobs.edit');
-Route::put('/jobs/{id}', [JobController::class, 'update'])->name('jobs.update');
+Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
 Route::delete('/jobs/{id}', [JobController::class, 'destroy'])->name('jobs.destroy');
 }
 {
